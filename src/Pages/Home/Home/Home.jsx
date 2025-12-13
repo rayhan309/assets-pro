@@ -6,6 +6,7 @@ import { useState } from "react";
 import Loading from "../../../Components/Loading/Loading";
 import Features from "../Features/Features";
 import TrustSection from "../TrustSection/TrustSection";
+import ExtraSections from "../ExtraSections/ExtraSections";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ const Home = () => {
       <Priching />
       <Features />
       <TrustSection />
+      <ExtraSections />
     </div>
   );
 };
