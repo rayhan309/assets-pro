@@ -5,7 +5,7 @@ const ErrorPage = () => {
   return (
     <div className="min-h-screen flex flex-col gap-10 justify-center items-center">
       {/* <!-- From Uiverse.io by DipeshPun91 -->  */}
-      <div className="card2">
+      <div className="card12">
         <p className="error-message">Page Not Found</p>
         <div className="error-title">
           <div className="error-item">

@@ -136,9 +136,9 @@ const FeaturesSection = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-16 bg-gradient-to-r from-slate-50/10 via-white/70 to-slate-50/20 rounded-2xl p-20 my-12"
+      className="bg-gradient-to-r from-slate-50/10 via-white/70 to-slate-50/20 rounded-2xl p-4 md:p-20 my-12"
     >
-      <div className="px-6 text-center">
+      <div className="text-center">
         <h2 className="text-3xl font-bold mb-8">Our Key Features</h2>
         <p className="mb-12">
           Discover what makes our product stand out with these amazing features.

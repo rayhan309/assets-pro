@@ -32,9 +32,9 @@ const AboutUs = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-20 bg-gradient-to-r from-slate-50/10 via-white/60 to-slate-50/20 mb-12 p-20 rounded-2xl text-white"
+      className="py-20 bg-gradient-to-r from-slate-50/10 via-white/60 to-slate-50/20 mb-12 p-4 md:p-20 rounded-2xl text-white"
     >
-      <div className="px-6 lg:px-8">
+      <div className="">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

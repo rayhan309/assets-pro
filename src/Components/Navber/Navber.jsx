@@ -43,8 +43,9 @@ const Navber = () => {
            {links}
           </ul>
         </div>
-        <Link>
+        <Link className="flex items-center gap-1">
           <img className="w-12 h-12 rounded-2xl" src={logo} alt="" />
+          <h4 className="text-3xl">AssetsPro</h4>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

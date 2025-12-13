@@ -25,7 +25,7 @@ const Priching = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9 }}
       viewport={{ once: true }}
-      className="rounded-2xl bg-gradient-to-r from-slate-50/10 via-white/70 to-slate-50/20 p-26 my-12"
+      className="rounded-2xl bg-gradient-to-r from-slate-50/10 via-white/70 to-slate-50/20 p-4 md:p-20 my-12"
     >
       <div className="my-10">
         <h1 className="text-4xl font-bold text-center">

@@ -33,8 +33,8 @@ const TrustSection = () => {
     }, []);
 
   return (
-    <section className="my-12 bg-gradient-to-r from-slate-50/10 via-white/70 to-slate-50/20 rounded-2xl p-20">
-      <div className=" px-6">
+    <section className="my-12 bg-gradient-to-r from-slate-50/10 via-white/70 to-slate-50/20 rounded-2xl p-4 md:p-20">
+      <div className="">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

@@ -48,7 +48,7 @@ const ExtraSections = () => {
   return (
     <motion.div
       {...motionProps}
-      className="p-26 bg-gradient-to-r from-slate-50/10 via-white/70 to-slate-50/20 rounded-2xl my-12 space-y-20"
+      className="p-4 md:p-20 bg-linear-to-r from-slate-50/10 via-white/70 to-slate-50/20 rounded-2xl my-12 space-y-20"
     >
       {/* How It Works */}
       <motion.section {...motionProps} className="text-center">
