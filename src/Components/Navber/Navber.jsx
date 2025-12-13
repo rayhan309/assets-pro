@@ -2,19 +2,20 @@ import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import logo from '../../assets/assets-logo.png';
 import { AuthContext } from "../../Context/AuthContext";
+import { House } from "lucide-react";
 
 const Navber = () => {
   const authInfo = use(AuthContext);
   console.log(authInfo);
 
   const links = <>
-  <li>
-    <NavLink to={'/'}>Home</NavLink>
+  <li className="">
+    <NavLink to={'/'}><House width={17} /> Home</NavLink>
   </li>
   </>
 
   return (
-    <div className="bg-base-100 shadow-sm">
+    <div className="bg-white/20 fixed top-0 left-0 z-50 w-full shadow-sm">
     <div className="navbar w-11/12 mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
@@ -37,7 +38,7 @@ const Navber = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content text-white bg-white/30 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
            {links}
           </ul>
@@ -47,7 +48,7 @@ const Navber = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 text-white">
           {links}
         </ul>
       </div>

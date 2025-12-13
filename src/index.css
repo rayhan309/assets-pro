@@ -14,6 +14,11 @@
 
 
 
+
+body {
+  @apply bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
+}
+
 /* bodo default style */
 body {
   font-family: "Urbanist", sans-serif;
