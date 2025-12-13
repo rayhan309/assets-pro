@@ -57,7 +57,7 @@ export default function Banner({
 
               <a
                 href="#"
-                className="inline-flex items-center text-sm justify-center bg-gray-300 rounded-2xl btn py-3 "
+                className="inline-flex items-center border-none text-sm justify-center bg-gray-300 rounded-2xl btn py-3 "
                 aria-label={secondaryCta}
               >
                 {secondaryCta}

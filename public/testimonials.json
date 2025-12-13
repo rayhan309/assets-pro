@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Sarah Johnson",
+    "role": "Product Manager, NovaTech",
+    "feedback": "This platform transformed our workflow. Performance and reliability are outstanding."
+  },
+  {
+    "name": "Michael Lee",
+    "role": "CTO, Cloudify",
+    "feedback": "Integration was effortless, and the analytics gave us instant insights."
+  },
+  {
+    "name": "Ayesha Rahman",
+    "role": "Founder, StartHub",
+    "feedback": "A clean UI, powerful features, and excellent support. Highly recommended."
+  }
+]

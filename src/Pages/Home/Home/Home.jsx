@@ -2,8 +2,22 @@ import { motion } from "framer-motion";
 import AboutUs from "../AboutUs/AboutUs";
 import Banner from "../Banner/Banner";
 import Priching from "../Priching/Priching";
+import { useState } from "react";
+import Loading from "../../../Components/Loading/Loading";
+import Features from "../Features/Features";
+import TrustSection from "../TrustSection/TrustSection";
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
+
+  setTimeout(() => {
+    setLoading(false);
+  }, 1000);
+
+  if(loading) {
+    return <Loading />
+  }
+
   return (
     <div>
       <Banner />
@@ -19,6 +33,8 @@ const Home = () => {
       </div>
       <AboutUs />
       <Priching />
+      <Features />
+      <TrustSection />
     </div>
   );
 };

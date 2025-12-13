@@ -6,7 +6,7 @@ import { House } from "lucide-react";
 
 const Navber = () => {
   const authInfo = use(AuthContext);
-  console.log(authInfo);
+  // console.log(authInfo);
 
   const links = <>
   <li className="">
@@ -53,7 +53,7 @@ const Navber = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">LogIn</a>
+        <a className="btn bg-slate-900 rounded-2xl">LogIn</a>
       </div>
     </div>
     </div>
