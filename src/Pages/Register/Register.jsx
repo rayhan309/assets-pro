@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
+import useAxiosSquer from "../../Hooks/useAxiosSquer";
 
 const Register = () => {
   const [role, setRole] = useState("hr");
+  const axiosSquer = useAxiosSquer();
+  const [photoURL, setPhotoURL] = useState("");
+  const [companyURL, setCompany] = useState("");
 
   const {
     register,
@@ -12,43 +16,73 @@ const Register = () => {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    const imagebbAPIK = import.meta.env.VITE_imagebb_sdk;
+    const formData2 = new FormData();
+    formData2.append("image", data?.companyLogo[0]);
+    const formData = new FormData();
+    formData.append("image", data.hrPhoto[0]);
 
+    if (role === "hr") {
+      try {
+        const res = await axiosSquer.post(
+          `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
+          formData2
+        );
+        if (res.data.data.url) {
+          setCompany(res.data.data.url);
+        }
+      } catch (err) {
+        console.log(err);
+        alert(err);
+      }
+    }
 
-    console.log(data.hrPhoto);
+    try {
+      const res = await axiosSquer.post(
+        `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
+        formData
+      );
+      if (res.data.data.url) {
+        setPhotoURL(res.data.data.url);
+      }
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
 
-  let payload = {};
+    let payload = {};
 
-  if (role === "hr") {
-    payload = {
-      role: "HR_MANAGER",
-      companyName: data.companyName,
-      companyLogo: data.companyLogo,
-      hrName: data.hrName,
-      dateOfBirth: data.dateOfBirth,
-      photo: data.hrPhoto,
-      email: data.email,
-      password: data.password,
-      packageEmployees: 5,
-      packagePrice: 0,
-      status: "ACTIVE",
-    };
-  } else {
-    payload = {
-      role: "EMPLOYEE",
-      name: data.name,
-      dateOfBirth: data.dateOfBirth,
-      photo: data.hrPhoto,
-      email: data.email,
-      password: data.password,
-      companyStatus: "NO_COMPANY",
-      message: "No company affiliation",
-    };
-  }
+    if (role === "hr") {
+      payload = {
+        role: "HR_MANAGER",
+        companyName: data.companyName,
+        companyLogo: companyURL,
+        hrName: data.hrName,
+        dateOfBirth: data.dateOfBirth,
+        photo: photoURL,
+        email: data.email,
+        password: data.password,
+        packageEmployees: 5,
+        packagePrice: 0,
+        status: "ACTIVE",
+      };
+    } else {
+      payload = {
+        role: "EMPLOYEE",
+        name: data.name,
+        dateOfBirth: data.dateOfBirth,
+        photo: photoURL,
+        email: data.email,
+        password: data.password,
+        companyStatus: "NO_COMPANY",
+        message: "No company affiliation",
+      };
+    }
 
-  console.log("REGISTER PAYLOAD:", payload);
-  reset();
-};
+    console.log("REGISTER PAYLOAD:", payload);
+    reset();
+  };
 
   return (
     <div className="min-h-screen my-20 flex items-center justify-center px-4">
@@ -198,7 +232,7 @@ const Register = () => {
           />
           {errors.email && <p className="error-text">{errors.email.message}</p>}
 
-            <label>Strogn Password</label>
+          <label>Strogn Password</label>
           <input
             type="password"
             {...register("password", {
@@ -212,9 +246,8 @@ const Register = () => {
             <p className="error-text">{errors.password.message}</p>
           )}
 
-
-            <label>Date of Birth</label>
-                    <input
+          <label>Date of Birth</label>
+          <input
             type="date"
             {...register("dateOfBirth", {
               required: "Date of Birth  is required",
@@ -224,7 +257,6 @@ const Register = () => {
           {errors.dateOfBirth && (
             <p className="error-text">Date of Birth is required</p>
           )}
-
 
           <button
             disabled={isSubmitting}
