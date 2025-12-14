@@ -2,12 +2,24 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
 import useAxiosSquer from "../../Hooks/useAxiosSquer";
+import { toast, ToastContainer } from "react-toastify";
+import useAuth from "../../Hooks/useAuth";
+import confetti from "canvas-confetti";
 
 const Register = () => {
   const [role, setRole] = useState("hr");
   const axiosSquer = useAxiosSquer();
-  const [photoURL, setPhotoURL] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
   const [companyURL, setCompany] = useState("");
+  const { createUser, updateUser } = useAuth();
+
+  const fireConfetti = () => {
+    confetti({
+      particleCount: 100, // number of particles
+      spread: 70, // spread of particles
+      origin: { y: 0.6 }, // start point on screen
+    });
+  };
 
   const {
     register,
@@ -18,11 +30,17 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     const imagebbAPIK = import.meta.env.VITE_imagebb_sdk;
+
+    // company photo
     const formData2 = new FormData();
     formData2.append("image", data?.companyLogo[0]);
-    const formData = new FormData();
-    formData.append("image", data.hrPhoto[0]);
 
+    // user photo
+    const formData = new FormData();
+    formData.append("image", data.photo[0]);
+    fireConfetti();
+
+    // company logo
     if (role === "hr") {
       try {
         const res = await axiosSquer.post(
@@ -34,21 +52,8 @@ const Register = () => {
         }
       } catch (err) {
         console.log(err);
-        alert(err);
+        alert(err, "photo");
       }
-    }
-
-    try {
-      const res = await axiosSquer.post(
-        `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
-        formData
-      );
-      if (res.data.data.url) {
-        setPhotoURL(res.data.data.url);
-      }
-    } catch (err) {
-      console.log(err);
-      alert(err);
     }
 
     let payload = {};
@@ -60,7 +65,7 @@ const Register = () => {
         companyLogo: companyURL,
         hrName: data.hrName,
         dateOfBirth: data.dateOfBirth,
-        photo: photoURL,
+        photo: photoUrl,
         email: data.email,
         password: data.password,
         packageEmployees: 5,
@@ -72,7 +77,7 @@ const Register = () => {
         role: "EMPLOYEE",
         name: data.name,
         dateOfBirth: data.dateOfBirth,
-        photo: photoURL,
+        photo: photoUrl,
         email: data.email,
         password: data.password,
         companyStatus: "NO_COMPANY",
@@ -81,6 +86,45 @@ const Register = () => {
     }
 
     console.log("REGISTER PAYLOAD:", payload);
+
+    // create user
+    // user image
+    try {
+      const res = await axiosSquer.post(
+        `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
+        formData
+      );
+      console.log(res);
+      if (res.data.data.url) {
+        setPhotoUrl(res.data.data.url);
+        createUser(data.email, data.password)
+          .then((res) => {
+            if (res.user) {
+              updateUser(data.name, res.data.data.url)
+                .then(() => {
+                  console.log({ namsjhsfjhdsfg: photoUrl });
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    } catch (err) {
+      toast.error(err);
+    }
+
+    // user save database
+    // try{
+    //   const res = await axiosSquer(`/users`, payload);
+    //   console.log(res.data);
+    // }catch(err) {
+    //   toast.error(err);
+    // }
+
     reset();
   };
 
@@ -158,14 +202,14 @@ const Register = () => {
                 {/* HR Name */}
                 <label>Full Name</label>
                 <input
-                  {...register("hrName", {
+                  {...register("name", {
                     required: "HR name is required",
                   })}
                   placeholder="HR Manager Name"
                   className="input-pro"
                 />
-                {errors.hrName && (
-                  <p className="error-text">{errors.hrName.message}</p>
+                {errors.name && (
+                  <p className="error-text">{errors.name.message}</p>
                 )}
 
                 {/* Company Logo */}
@@ -173,7 +217,7 @@ const Register = () => {
                 <input
                   type="file"
                   accept="image/*"
-                  {...register("hrPhoto")}
+                  {...register("photo")}
                   className="file-input file-input-bordered w-full"
                 />
 
@@ -212,7 +256,7 @@ const Register = () => {
                 <input
                   type="file"
                   accept="image/*"
-                  {...register("hrPhoto")}
+                  {...register("photo")}
                   className="file-input file-input-bordered w-full"
                 />
 
@@ -271,6 +315,7 @@ const Register = () => {
           © AssetsPro • Secure Asset Management
         </p>
       </motion.div>
+      <ToastContainer />
     </div>
   );
 };

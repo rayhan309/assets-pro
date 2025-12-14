@@ -1,75 +1,106 @@
-import React from "react";
+import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
+import { Link } from "react-router";
+import useAuth from "../../Hooks/useAuth";
 
-const LogIn = () => {
+const Login = () => {
+  const { signInUser } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log("LOGIN DATA:", data);
+
+    signInUser(data.email, data.password)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    //   <!-- From Uiverse.io by Priyanshu02020 -->
-    // <!-- From Uiverse.io by Smit-Prajapati --> 
-<div class="wrapper">
-  <form class="form">
-    <span class="title">Login</span>
-
-    <div class="input-container">
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+    <div className="min-h-screen my-20 flex items-center justify-center px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-md glass-card p-8 rounded-2xl text-white"
       >
-        <defs>
-          <linearGradient
-            id="gradient-stroke"
-            x1="0"
-            y1="0"
-            x2="24"
-            y2="24"
-            gradientUnits="userSpaceOnUse"
+        {/* Header */}
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold">Login</h2>
+          <p className="text-sm opacity-70">Access your AssetsPro account</p>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Email */}
+          <label>Email Address</label>
+          <input
+            {...register("email", {
+              required: "Email is required",
+            })}
+            placeholder="Enter your email"
+            className="input-pro"
+          />
+          {errors.email && <p className="error-text">{errors.email.message}</p>}
+
+          {/* Password */}
+          <label>Password</label>
+          <input
+            type="password"
+            {...register("password", {
+              required: "Password is required",
+            })}
+            placeholder="Enter your password"
+            className="input-pro"
+          />
+          {errors.password && (
+            <p className="error-text">{errors.password.message}</p>
+          )}
+
+          {/* Remember & Forgot */}
+          <div className="flex items-center justify-between text-sm">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" className="checkbox checkbox-sm" />
+              Remember me
+            </label>
+            <a href="#" className="text-primary hover:underline">
+              Forgot password?
+            </a>
+          </div>
+
+          {/* Submit */}
+          <button
+            disabled={isSubmitting}
+            className="btn btn-primary w-full rounded-xl mt-4"
           >
-            <stop offset="0%" stop-color="black"></stop>
-            <stop offset="100%" stop-color="white"></stop>
-          </linearGradient>
-        </defs>
+            {isSubmitting ? "Logging in..." : "Login"}
+          </button>
+        </form>
 
-        <g stroke="url(#gradient-stroke)" fill="none" stroke-width="1">
-          <path d="M21.6365 5H3L12.2275 12.3636L21.6365 5Z"></path>
-          <path d="M16.5 11.5L22.5 6.5V17L16.5 11.5Z"></path>
-          <path d="M8 11.5L2 6.5V17L8 11.5Z"></path>
-          <path
-            d="M9.5 12.5L2.81805 18.5002H21.6362L15 12.5L12 15L9.5 12.5Z"
-          ></path>
-        </g>
-      </svg>
-      <input class="input" type="text" placeholder="Email" />
+        {/* Divider */}
+        <div className="divider text-xs opacity-60">OR</div>
+
+        {/* Register Redirect */}
+        <p className="text-sm text-center opacity-70">
+          Don’t have an account?{" "}
+          <Link to={"/register"} className="text-primary hover:underline">
+            Register
+          </Link>
+        </p>
+
+        {/* Footer */}
+        <p className="text-xs text-center opacity-50 mt-6">
+          © AssetsPro • Secure Asset Management
+        </p>
+      </motion.div>
     </div>
-
-    <div class="input-container">
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g stroke="url(#gradient-stroke)" fill="none" stroke-width="1">
-          <path
-            d="M3.5 15.5503L9.20029 9.85L12.3503 13L11.6 13.7503H10.25L9.8 15.1003L8 16.0003L7.55 18.2503L5.5 19.6003H3.5V15.5503Z"
-          ></path>
-          <path d="M16 3.5H11L8.5 6L16 13.5L21 8.5L16 3.5Z"></path>
-          <path d="M16 10.5L18 8.5L15 5.5H13L12 6.5L16 10.5Z"></path>
-        </g>
-      </svg>
-      <input class="input" type="password" placeholder="Password" />
-    </div>
-
-    <div class="login-button">
-      <input class="input" type="submit" value="Login" />
-    </div>
-
-    <div class="texture"></div>
-  </form>
-</div>
-
   );
 };
 
-export default LogIn;
+export default Login;
