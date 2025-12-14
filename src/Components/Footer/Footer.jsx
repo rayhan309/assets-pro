@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <div className="bg-linear-to-r from-slate-50/10 via-white/70 to-slate-50/20 rounded-t-2xl">
+    <div className="bg-white/20 rounded-t-2xl">
       <footer className="footer sm:footer-horizontal w-11/12 mx-auto text-neutral-content p-10">
         <nav>
 
@@ -130,7 +130,7 @@ const Footer = () => {
       </footer>
 
       <div className="p-6 bg-white/5">
-        <p className="text-center">@Programming Hero 2025</p>
+        <p className="text-center">© AssetsPro • Secure Asset Management</p>
       </div>
     </div>
   );

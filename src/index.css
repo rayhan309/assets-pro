@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
 
- @plugin "daisyui/theme" {
+@plugin "daisyui/theme" {
   name: "light";
   default: true;
   --color-primary: blue;
@@ -10,9 +10,8 @@
   --color-worning: red;
 }
 
-
 body {
-  @apply bg-linear-to-t from-blue-200/20 via-black/40 to-blue-200/20
+@apply bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
 }
 
 /* bodo default style */
@@ -21,9 +20,8 @@ body {
   font-optical-sizing: auto;
 }
 
-
 /* loding card */
-/* From Uiverse.io by Vosoone */ 
+/* From Uiverse.io by Vosoone */
 .main-container {
   display: flex;
   justify-content: center;
@@ -98,7 +96,7 @@ body {
 }
 
 /* 404 page */
-/* From Uiverse.io by DipeshPun91 */ 
+/* From Uiverse.io by DipeshPun91 */
 .card12 {
   width: 280px;
   height: 280px;
@@ -114,9 +112,7 @@ body {
   overflow: hidden;
   text-align: center;
   cursor: pointer;
-  box-shadow:
-    0 0 15px rgba(0, 234, 255, 0.2),
-    0 0 30px rgba(151, 65, 252, 0.15);
+  box-shadow: 0 0 15px rgba(0, 234, 255, 0.2), 0 0 30px rgba(151, 65, 252, 0.15);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -135,9 +131,7 @@ body {
       rgba(139, 0, 255, 0.6)
     )
     border-box;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) padding-box,
-    linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
   pointer-events: none;
@@ -162,9 +156,7 @@ body {
 
 .card12:hover {
   transform: scale(1.03);
-  box-shadow:
-    0 0 20px rgba(0, 234, 255, 0.3),
-    0 0 40px rgba(151, 65, 252, 0.2);
+  box-shadow: 0 0 20px rgba(0, 234, 255, 0.3), 0 0 40px rgba(151, 65, 252, 0.2);
 }
 
 .error-message {
@@ -201,9 +193,7 @@ body {
 .error-title span {
   position: relative;
   z-index: 1;
-  text-shadow:
-    2px 2px 0 #fded00,
-    -2px -2px 0 #00eaff;
+  text-shadow: 2px 2px 0 #fded00, -2px -2px 0 #00eaff;
 }
 
 .error-title .error-glitch {
@@ -212,18 +202,14 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  text-shadow:
-    2px 2px 0 #00e572,
-    -2px -2px 0 #8b00ff;
+  text-shadow: 2px 2px 0 #00e572, -2px -2px 0 #8b00ff;
   clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
   animation: glitch 2.5s infinite linear alternate;
   opacity: 0.8;
 }
 
 .error-title .error-glitch--secondary {
-  text-shadow:
-    -2px -2px 0 #ff3366,
-    2px 2px 0 #00ccff;
+  text-shadow: -2px -2px 0 #ff3366, 2px 2px 0 #00ccff;
   clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
   animation-delay: 0.5s;
 }
@@ -379,9 +365,8 @@ body {
   }
 }
 
-
 /* shocal links */
-/* From Uiverse.io by wilsondesouza */ 
+/* From Uiverse.io by wilsondesouza */
 ul {
   list-style: none;
 }
@@ -477,4 +462,36 @@ ul {
 .example-2 .icon-content a[data-social="youtube"] .filled,
 .example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
   background-color: #ff0000;
+}
+
+
+/* register forf */
+.glass-card {
+  backdrop-filter: blur(14px);
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.input-pro {
+  @apply w-full h-12 px-4 rounded-lg bg-transparent
+  border border-white/20 text-white
+  focus:border-primary focus:outline-none;
+}
+
+.role-card {
+  @apply p-4 rounded-xl border border-white/10 text-left
+  transition-all duration-300 hover:border-primary;
+  background: rgba(255,255,255,0.04);
+}
+
+.role-card.active {
+  @apply border-primary shadow-lg scale-[1.02];
+}
+
+.error-text {
+  @apply text-sm text-red-400;
 }

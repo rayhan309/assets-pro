@@ -54,7 +54,7 @@ const Navber = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn bg-slate-900 rounded-2xl">LogIn</a>
+        <Link to={'/login'} className="btn bg-slate-900 rounded-2xl">LogIn</Link>
       </div>
     </div>
     </div>
