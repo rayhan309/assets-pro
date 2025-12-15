@@ -10,8 +10,10 @@ import {
   HelpCircle,
   List,
   Plus,
+  SaveAll,
   TextAlignJustify,
-  } from "lucide-react";
+  Users,
+} from "lucide-react";
 
 const DashboardLayout = () => {
   const [loading, setLoading] = useState(true);
@@ -106,6 +108,32 @@ const DashboardLayout = () => {
                 {/* List item */}
                 <li>
                   <NavLink
+                    to={"/dashboard/all-requests"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="All Request"
+                  >
+                    {/* add icon */}
+                    <SaveAll width={17} />
+                    <span className="is-drawer-close:hidden">All Request</span>
+                  </NavLink>
+                </li>
+
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to={"/dashboard/my-employeis"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Employeis"
+                  >
+                    {/* add icon */}
+                    <Users width={17} />
+                    <span className="is-drawer-close:hidden">My Employeis</span>
+                  </NavLink>
+                </li>
+
+                {/* List item */}
+                <li>
+                  <NavLink
                     to={"/dashboard/add-assets"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Add Assets"
@@ -128,24 +156,37 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">Subscription</span>
                   </NavLink>
                 </li>
+
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to={"/dashboard/my-assets"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Assets"
+                  >
+                    {/* Settings icon */}
+                    <TextAlignJustify width={17} />
+                    <span className="is-drawer-close:hidden">My Assets</span>
+                  </NavLink>
+                </li>
               </>
             )}
 
-            {/* List item */}
-            <li>
-              <NavLink
-                to={"/dashboard/my-assets"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="My Assets"
-              >
-                {/* Settings icon */}
-                <TextAlignJustify width={17} />
-                <span className="is-drawer-close:hidden">My Assets</span>
-              </NavLink>
-            </li>
-
             {role === "HR_MANAGER" || (
               <>
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to={"/dashboard/my-assetsemploy"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Assets"
+                  >
+                    {/* Settings icon */}
+                    <TextAlignJustify width={17} />
+                    <span className="is-drawer-close:hidden">My Assets</span>
+                  </NavLink>
+                </li>
+
                 <li>
                   <NavLink
                     to={"/dashboard/request-an-asset"}

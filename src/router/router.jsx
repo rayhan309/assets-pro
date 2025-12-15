@@ -16,6 +16,9 @@ import JoinHR from "../Pages/Home/JoinHR/JoinHR";
 import MyAssets from "../Pages/Dashboard/MyAssets/MyAssets";
 import AssetsList from "../Pages/Dashboard/AssetsList/AssetsList";
 import RequestAnAsset from "../Pages/Dashboard/Request-an-Asset/RequestAnAsset";
+import AllRequests from "../Pages/Dashboard/AllRequests/AllRequests";
+import MyAssetsEmploy from "../Pages/Dashboard/MyAssetsEmploy/MyAssetsEmploy";
+import MyEmploys from "../Pages/Dashboard/MyEmploys/MyEmploys";
 
 export const router = createBrowserRouter([
   {
@@ -75,20 +78,45 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'my-assets',
-        Component: MyAssets
+        path: "my-assets",
+        element: (
+          <HRPrivitePage>
+            <MyAssets />
+          </HRPrivitePage>
+        ),
       },
       {
-        path: 'request-an-asset',
-        Component: RequestAnAsset
+        path: "my-assetsemploy",
+        Component: MyAssetsEmploy,
       },
       {
-        path: 'assets-list',
-        element: <HRPrivitePage>
-          <AssetsList />
-        </HRPrivitePage> 
+        path: "request-an-asset",
+        Component: RequestAnAsset,
       },
-      
+      {
+        path: "assets-list",
+        element: (
+          <HRPrivitePage>
+            <AssetsList />
+          </HRPrivitePage>
+        ),
+      },
+      {
+        path: "all-requests",
+        element: (
+          <HRPrivitePage>
+            <AllRequests />
+          </HRPrivitePage>
+        ),
+      },
+      {
+        path: "my-employeis",
+        element: (
+          <HRPrivitePage>
+            <MyEmploys />
+          </HRPrivitePage>
+        ),
+      },
     ],
   },
 ]);

@@ -4,6 +4,8 @@ import useAxiosSquer from "../../../Hooks/useAxiosSquer";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../Components/Loading/Loading";
 import { Package } from "lucide-react";
+import { toast, ToastContainer } from "react-toastify";
+import Swal from "sweetalert2";
 
 const RequestAnAsset = () => {
   const { user } = useAuth();
@@ -27,12 +29,39 @@ const RequestAnAsset = () => {
   const handleSubmitRequest = () => {
     const requestData = {
       assetId: selectedAsset._id,
-      productName: selectedAsset.productName,
+      assetName: selectedAsset.productName,
+      assetType: selectedAsset.productType,
       requesterEmail: user?.email,
+      requesterName: user?.displayName,
+      hrEmail: selectedAsset.hrEmail,
+      companyName: selectedAsset.hrCompanyName,
       note,
-      status: "pending",
+      approvalDate: null,
+      requestStatus: "pending",
       requestDate: new Date().toISOString(),
     };
+
+    axiosSquer
+      .post("/requests", requestData)
+      .then((res) => {
+        if (res.data.updateResult.modifiedCount && res.data.result.insertedId) {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Your request has been submitted successfully. Please wait for approval.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Your request filed, Please try again.",
+          // footer: '<a href="#">Why do I have this issue?</a>',
+        });
+      });
 
     console.log("REQUEST CREATED:", requestData);
 
@@ -49,7 +78,9 @@ const RequestAnAsset = () => {
           Request an Asset
         </h2>
       </div>
-      <p className="mb-6 text-center text-primary">All Companeis Assets Chouse Assets & Find</p>
+      <p className="mb-6 text-center text-primary">
+        All Companeis Assets Chouse Assets & Find
+      </p>
 
       {/* Asset Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -109,6 +140,7 @@ const RequestAnAsset = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

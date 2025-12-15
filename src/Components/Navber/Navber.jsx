@@ -108,7 +108,6 @@ const Navber = () => {
               open ? "top-18 -right-5 " : ""
             }`}
           >
-
             {/* user hr manager */}
             {userInfo?.role === "HR_MANAGER" && (
               <>
@@ -120,7 +119,16 @@ const Navber = () => {
                 >
                   <List width={22} /> Assets List
                 </NavLink>
-                
+
+                <NavLink
+                  to={"/dashboard/all-requests"}
+                  className={
+                    "btn btn-ghost w-full hover:bg-white/10 border-none"
+                  }
+                >
+                  <List width={22} /> All Request
+                </NavLink>
+
                 <NavLink
                   to={"/dashboard/add-assets"}
                   className={
@@ -129,24 +137,45 @@ const Navber = () => {
                 >
                   <Plus width={22} /> Add Assets
                 </NavLink>
+
+                <NavLink
+                  to={"/dashboard/my-assets"}
+                  className={
+                    "btn btn-ghost w-full hover:bg-white/10 border-none"
+                  }
+                >
+                  <TextAlignJustify width={22} /> My Assets
+                </NavLink>
               </>
             )}
-
-            <NavLink
-              to={"/dashboard/my-assets"}
-              className={"btn btn-ghost w-full hover:bg-white/10 border-none"}
-            >
-              <TextAlignJustify width={22} /> My Assets
-            </NavLink>
 
             {/* user not a manager */}
             {userInfo?.role !== "HR_MANAGER" && (
               <>
-                <NavLink to={"/join-hr"} className={'btn btn-ghost w-full hover:bg-white/10 border-none'}>
+                <NavLink
+                  to={"/dashboard/my-assetsemploy"}
+                  className={
+                    "btn btn-ghost w-full hover:bg-white/10 border-none"
+                  }
+                >
+                  <TextAlignJustify width={22} /> My Assets
+                </NavLink>
+
+                <NavLink
+                  to={"/join-hr"}
+                  className={
+                    "btn btn-ghost w-full hover:bg-white/10 border-none"
+                  }
+                >
                   <SquarePlus width={22} /> Join as HR
                 </NavLink>
 
-                <NavLink to={"/dashboard/request-an-asset"} className={'btn btn-ghost w-full hover:bg-white/10 border-none'}>
+                <NavLink
+                  to={"/dashboard/request-an-asset"}
+                  className={
+                    "btn btn-ghost w-full hover:bg-white/10 border-none"
+                  }
+                >
                   <HelpCircle width={22} /> Req an Asset
                 </NavLink>
               </>

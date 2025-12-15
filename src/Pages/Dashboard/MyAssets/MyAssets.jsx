@@ -9,6 +9,7 @@ const MyAssets = () => {
   const { user } = useAuth();
   const axiosSquer = useAxiosSquer();
 
+  // hr data
   const { data: assets = [], isLoading } = useQuery({
     queryKey: ["assets", user?.email],
     queryFn: async () => {
@@ -61,9 +62,7 @@ const MyAssets = () => {
                   />
                   <div>
                     <p className="font-semibold">{asset.productName}</p>
-                    <p className="text-xs opacity-60">
-                      {asset.hrCompanyName}
-                    </p>
+                    <p className="text-xs opacity-60">{asset.hrCompanyName}</p>
                   </div>
                 </td>
 
@@ -129,4 +128,3 @@ const MyAssets = () => {
 };
 
 export default MyAssets;
-
