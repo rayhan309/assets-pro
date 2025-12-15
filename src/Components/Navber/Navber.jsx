@@ -2,14 +2,26 @@ import React, { use, useState } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../../assets/assets-logo.png";
 import { AuthContext } from "../../Context/AuthContext";
-import { ChevronDown, ChevronUp, House, LayoutDashboard, SquarePlus } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  CircleUser,
+  HelpCircle,
+  House,
+  LayoutDashboard,
+  List,
+  LogOut,
+  Plus,
+  SquarePlus,
+  TextAlignJustify,
+} from "lucide-react";
 import Swal from "sweetalert2";
 import useUserRole from "../../Hooks/useUserRole";
 
 const Navber = () => {
   const { user, signOutUser } = use(AuthContext);
   const [open, setOpen] = useState(false);
-  const {userInfo} = useUserRole();
+  const { userInfo } = useUserRole();
 
   const links = (
     <>
@@ -19,18 +31,10 @@ const Navber = () => {
         </NavLink>
       </li>
       <li className="">
-        <NavLink to={"/dashboard"}>
+        <NavLink to={"/dashboard/my-assets"}>
           <LayoutDashboard width={17} /> Dashboard
         </NavLink>
       </li>
-
-      {userInfo?.role !== 'HR_MANAGER' && (
-        <li>
-          <NavLink to={'/join-hr'}>
-            <SquarePlus width={17} /> Join as HR Manager
-            </NavLink>
-        </li>
-      )}
     </>
   );
   // handleSignOutUser
@@ -100,21 +104,65 @@ const Navber = () => {
         </div>
         <div className="navbar-end">
           <div
-            className={`absolute w-40 -top-48 -right-5 z-20 glass-card p-2 rounded-xl transition-all duration-1000 ease-out ${
+            className={`absolute w-48 -top-96 -right-5 z-20 glass-card p-2 rounded-xl transition-all duration-1000 ease-out ${
               open ? "top-18 -right-5 " : ""
             }`}
           >
+
+            {/* user hr manager */}
+            {userInfo?.role === "HR_MANAGER" && (
+              <>
+                <NavLink
+                  to={"/dashboard/assets-list"}
+                  className={
+                    "btn btn-ghost w-full hover:bg-white/10 border-none"
+                  }
+                >
+                  <List width={22} /> Assets List
+                </NavLink>
+                
+                <NavLink
+                  to={"/dashboard/add-assets"}
+                  className={
+                    "btn btn-ghost w-full hover:bg-white/10 border-none"
+                  }
+                >
+                  <Plus width={22} /> Add Assets
+                </NavLink>
+              </>
+            )}
+
+            <NavLink
+              to={"/dashboard/my-assets"}
+              className={"btn btn-ghost w-full hover:bg-white/10 border-none"}
+            >
+              <TextAlignJustify width={22} /> My Assets
+            </NavLink>
+
+            {/* user not a manager */}
+            {userInfo?.role !== "HR_MANAGER" && (
+              <>
+                <NavLink to={"/join-hr"} className={'btn btn-ghost w-full hover:bg-white/10 border-none'}>
+                  <SquarePlus width={22} /> Join as HR
+                </NavLink>
+
+                <NavLink to={"/dashboard/request-an-asset"} className={'btn btn-ghost w-full hover:bg-white/10 border-none'}>
+                  <HelpCircle width={22} /> Req an Asset
+                </NavLink>
+              </>
+            )}
+
             <Link
               to={"/dashboard/profile"}
               className="btn btn-ghost w-full hover:bg-white/10 border-none"
             >
-              Profile
+              <CircleUser width={22} /> Profile
             </Link>
             <button
               onClick={handleSignOutUser}
               className="btn btn-ghost w-full hover:bg-white/10 border-none"
             >
-              LogOut
+              <LogOut width={22} /> LogOut
             </button>
           </div>
 

@@ -10,19 +10,33 @@ const useAxiosSquer = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    const res = axiosSquer.interceptors.request.use((config) => {
+    const req = axiosSquer.interceptors.request.use(
+      (config) => {
+        if (user?.accessToken) {
+          config.headers.Authorization = `Bearer ${user?.accessToken}`;
+        }
 
-      if(user?.accessToken) {
-        config.headers.Authorization = `Bearer ${user?.accessToken}`
+        return config;
+      },
+      (err) => {
+        return Promise.reject(err);
       }
+    );
 
-      return config;
-    }, (err) => {
-      return Promise.reject(err);
-    });
+    const res = axiosSquer.interceptors.request.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        console.log(error);
+        return Promise.reject(error);
+      }
+    );
 
-    return () => axiosSquer.interceptors.request.eject(res);
-
+    return (
+      () => axiosSquer.interceptors.request.eject(req),
+      axiosSquer.interceptors.response.eject(res)
+    );
   }, [user?.accessToken]);
 
   return axiosSquer;

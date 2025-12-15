@@ -1,7 +1,10 @@
+import axios from "axios";
 import { UploadCloud } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import useAxiosSquer from "../../../Hooks/useAxiosSquer";
+import useUserRole from "../../../Hooks/useUserRole";
 
 const AddAssets = () => {
   const {
@@ -11,64 +14,93 @@ const AddAssets = () => {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
+  const axiosSquer = useAxiosSquer();
+  const { userInfo } = useUserRole();
 
   const onSubmit = async (data) => {
     setLoading(true);
 
     try {
-      // 1️⃣ Upload image to ImgBB
+      // Upload image
+      const imagebbAPIK = import.meta.env.VITE_imagebb_sdk;
       const imgData = new FormData();
-      imgData.append("image", data.productImage[0]);
+      imgData.append("image", data.photo[0]);
 
-      const imgRes = await fetch(
-        `https://api.imgbb.com/1/upload?key=YOUR_IMGBB_API_KEY`,
-        {
-          method: "POST",
-          body: imgData,
-        }
+      const imgRes = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
+        imgData
       );
 
-      const imgResult = await imgRes.json();
-
-      if (!imgResult.success) {
-        throw new Error("Image upload failed");
+      const imgResult = imgRes.data.data.url;
+      if (imgResult) {
+        try {
+          const asset = {
+            productName: data.productName,
+            productType: data.productType,
+            productQuantity: parseInt(data.productQuantity),
+            availableQuantity: parseInt(data.productQuantity),
+            productImage: imgRes.data.data.url,
+            hrEmail: userInfo?.email,
+            hrCompanyName: userInfo?.companyName,
+          };
+          // console.log(asset);
+          const res = await axiosSquer.post("/assets", asset);
+          if (res.data.insertedId) {
+            reset();
+            Swal.fire({
+              icon: "success",
+              title: "Asset Added",
+              text: "New asset has been added successfully",
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            icon: "error",
+            title: "Something went wrong",
+            text: error.message,
+          });
+        }
       }
 
-      const asset = {
-        productName: data.productName,
-        productType: data.productType,
-        productQuantity: parseInt(data.productQuantity),
-        productImage: imgResult.data.display_url,
-        createdAt: new Date(),
-      };
-
-      // 2️⃣ Save asset to assets collection
-      const res = await fetch("/assets", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(asset),
-      });
-
-      if (res.ok) {
-        Swal.fire({
-          icon: "success",
-          title: "Asset Added",
-          text: "New asset has been added successfully",
-        });
-        reset();
-      }
+      setLoading(false);
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Something went wrong",
         text: error.message,
       });
-    } finally {
-      setLoading(false);
     }
   };
+
+  // if (!imgResult.success) {
+  //   throw new Error("Image upload failed");
+  // }
+
+  // const asset = {
+  //   productName: data.productName,
+  //   productType: data.productType,
+  //   productQuantity: parseInt(data.productQuantity),
+  //   productImage: imgResult.data.display_url,
+  //   createdAt: new Date(),
+  // };
+
+  // // Save asset to assets collection
+  // const res = await fetch("/assets", {
+  //   method: "POST",
+  //   headers: {
+  //     "content-type": "application/json",
+  //   },
+  //   body: JSON.stringify(asset),
+  // });
+
+  // if (res.ok) {
+  //   Swal.fire({
+  //     icon: "success",
+  //     title: "Asset Added",
+  //     text: "New asset has been added successfully",
+  //   });
+  //   reset();
+  // }
 
   return (
     <div className="max-w-2xl mx-auto mt-16 glass-card shadow-xl rounded-2xl p-6">
@@ -125,7 +157,7 @@ const AddAssets = () => {
         )}
 
         {/* Product Quantity */}
-        <label className="font-medium">Product Quantity</label>       
+        <label className="font-medium">Product Quantity</label>
         <input
           type="number"
           min="1"

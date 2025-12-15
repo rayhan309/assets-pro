@@ -18,7 +18,7 @@ import useUserRole from "../../../Hooks/useUserRole";
 import useAuth from "../../../Hooks/useAuth";
 import Loading from "../../../Components/Loading/Loading";
 import { useForm } from "react-hook-form";
-import useAxiosSquer from "../../../Hooks/useAxiosSquer";
+import axios from "axios";
 
 const Profile = () => {
   const { userInfo } = useUserRole();
@@ -26,7 +26,6 @@ const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const { handleSubmit, register } = useForm();
-  const axiosSquer = useAxiosSquer();
 
   if (!userInfo) return null;
 
@@ -64,7 +63,7 @@ const Profile = () => {
     const imagebbAPIK = import.meta.env.VITE_imagebb_sdk;
     
     try{
-      const res = await axiosSquer.post(`https://api.imgbb.com/1/upload?key=${imagebbAPIK}`, formData);
+      const res = await axios.post(`https://api.imgbb.com/1/upload?key=${imagebbAPIK}`, formData);
       console.log(res.data);
     }catch(err) {
       alert(err)
@@ -209,7 +208,7 @@ const Profile = () => {
             animate={{ scale: 1, opacity: 1 }}
             className="modal-box glass-card space-y-3"
           >
-            <h3 className="font-bold text-lg mb-4">Update Profile</h3>
+            <h3 className="font-bold text-xl mb-4">Update Profile</h3>
 
             {/* name */}
             <label>Your Name</label>

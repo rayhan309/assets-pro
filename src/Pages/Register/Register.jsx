@@ -8,6 +8,7 @@ import confetti from "canvas-confetti";
 import Loading from "../../Components/Loading/Loading";
 import { useLocation, useNavigate } from "react-router";
 import { UploadCloud } from "lucide-react";
+import axios from "axios";
 
 const Register = () => {
   const [role, setRole] = useState("hr");
@@ -46,7 +47,7 @@ const Register = () => {
       const formData = new FormData();
       formData.append("image", data?.companyLogo[0]);
       try {
-        const response = await axiosSquer.post(
+        const response = await axios.post(
           `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
           formData
         );
@@ -65,7 +66,7 @@ const Register = () => {
     // create user
     // user image
     try {
-      const resp = await axiosSquer.post(
+      const resp = await axios.post(
         `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
         formData
       );

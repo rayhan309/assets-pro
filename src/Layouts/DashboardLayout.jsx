@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import logo from "../assets/assets-logo.png";
 import Loading from "../Components/Loading/Loading";
 import useUserRole from "../Hooks/useUserRole";
 import { Outlet } from "react-router";
-import { Bell, Plus, User } from "lucide-react";
+import {
+  Bell,
+  CircleUser,
+  HelpCircle,
+  List,
+  Plus,
+  TextAlignJustify,
+  } from "lucide-react";
 
 const DashboardLayout = () => {
   const [loading, setLoading] = useState(true);
-  const {userInfo} = useUserRole();
+  const { userInfo } = useUserRole();
 
-  const {role} = userInfo;
+  const { role } = userInfo;
 
   setTimeout(() => {
     setLoading(false);
@@ -24,26 +31,26 @@ const DashboardLayout = () => {
       <div className="drawer-content">
         {/* Navbar */}
         <nav className="navbar w-full glass-card flex justify-between">
-          <label
-            htmlFor="my-drawer-4"
-            aria-label="open sidebar"
-            className=""
-          >
+          <label htmlFor="my-drawer-4" aria-label="open sidebar" className="">
             {/* Sidebar toggle icon */}
             <div className="flex items-center ml-1 cursor-pointer">
-            <img src={logo} className="rounded-full w-12 h-12" alt="" />
-            <h2 className="px-2 text-xl">AssetsPro</h2>
+              <img src={logo} className="rounded-full w-12 h-12" alt="" />
+              <h2 className="px-2 text-xl">AssetsPro</h2>
             </div>
           </label>
 
-          <Link to={'/dashboard/profile'} className="mr-6">
-          <img title={userInfo.name} className="w-12 h-12 rounded-full" src={userInfo.photo} alt="" />
+          <Link to={"/dashboard/profile"} className="mr-6">
+            <img
+              title={userInfo.name}
+              className="w-12 h-12 rounded-full border-2"
+              src={userInfo.photo}
+              alt=""
+            />
           </Link>
         </nav>
         {/* Page content here */}
         <div className="min-h-screen">
-
-        <Outlet />
+          <Outlet />
         </div>
       </div>
 
@@ -81,48 +88,89 @@ const DashboardLayout = () => {
               </Link>
             </li>
 
-            {role === 'HR_MANAGER' && <>
-                        {/* List item */}
-            <li>
-              <Link
-                to={"/dashboard/add-assets"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Add Assets"
-              >
-                {/* add icon */}
-                  <Plus width={17} />
-                <span className="is-drawer-close:hidden">Add Assets</span>
-              </Link>
-            </li>
+            {role === "HR_MANAGER" && (
+              <>
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to={"/dashboard/assets-list"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assets List"
+                  >
+                    {/* add icon */}
+                    <List width={17} />
+                    <span className="is-drawer-close:hidden">Assets List</span>
+                  </NavLink>
+                </li>
 
-                        {/* List item */}
-            <li>
-              <Link
-                to={"/dashboard/pricing"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Subscription"
-              >
-                {/* add icon */}
-                  <Bell width={17} />
-                <span className="is-drawer-close:hidden">Subscription</span>
-              </Link>
-            </li>
-            </>
-            }
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to={"/dashboard/add-assets"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Add Assets"
+                  >
+                    {/* add icon */}
+                    <Plus width={17} />
+                    <span className="is-drawer-close:hidden">Add Assets</span>
+                  </NavLink>
+                </li>
 
-
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to={"/dashboard/pricing"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Subscription"
+                  >
+                    {/* add icon */}
+                    <Bell width={17} />
+                    <span className="is-drawer-close:hidden">Subscription</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
 
             {/* List item */}
             <li>
-              <Link
-              to={'/dashboard/profile'}
+              <NavLink
+                to={"/dashboard/my-assets"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="My Assets"
+              >
+                {/* Settings icon */}
+                <TextAlignJustify width={17} />
+                <span className="is-drawer-close:hidden">My Assets</span>
+              </NavLink>
+            </li>
+
+            {role === "HR_MANAGER" || (
+              <>
+                <li>
+                  <NavLink
+                    to={"/dashboard/request-an-asset"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Request an Asset"
+                  >
+                    <HelpCircle width={17} />
+                    <span className="is-drawer-close:hidden">
+                      Request an Asset
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
+
+            <li>
+              <NavLink
+                to={"/dashboard/profile"}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Profile"
               >
                 {/* Settings icon */}
-                  <User width={17} />
+                <CircleUser width={17} />
                 <span className="is-drawer-close:hidden">Profile</span>
-              </Link>
+              </NavLink>
             </li>
 
             {/* List item */}

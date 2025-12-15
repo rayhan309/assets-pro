@@ -13,6 +13,9 @@ import Subscription from "../Pages/Dashboard/Subscription/Subscription";
 import AddAssets from "../Pages/Dashboard/AddAssets/AddAssets";
 import HRPrivitePage from "../Context/HRPrivitePage";
 import JoinHR from "../Pages/Home/JoinHR/JoinHR";
+import MyAssets from "../Pages/Dashboard/MyAssets/MyAssets";
+import AssetsList from "../Pages/Dashboard/AssetsList/AssetsList";
+import RequestAnAsset from "../Pages/Dashboard/Request-an-Asset/RequestAnAsset";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +74,21 @@ export const router = createBrowserRouter([
           </HRPrivitePage>
         ),
       },
+      {
+        path: 'my-assets',
+        Component: MyAssets
+      },
+      {
+        path: 'request-an-asset',
+        Component: RequestAnAsset
+      },
+      {
+        path: 'assets-list',
+        element: <HRPrivitePage>
+          <AssetsList />
+        </HRPrivitePage> 
+      },
+      
     ],
   },
 ]);
