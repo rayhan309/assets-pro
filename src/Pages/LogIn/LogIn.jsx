@@ -95,7 +95,7 @@ const Login = () => {
               <input type="checkbox" className="checkbox checkbox-sm" />
               Remember me
             </label>
-            <a href="#" className="text-primary hover:underline">
+            <a href="#" className="text-[#f77e52] hover:underline">
               Forgot password?
             </a>
           </div>
@@ -103,7 +103,7 @@ const Login = () => {
           {/* Submit */}
           <button
             disabled={isSubmitting}
-            className="btn btn-primary w-full rounded-xl mt-4"
+            className="btn bg-[#f77e52] border-none w-full rounded-xl mt-4"
           >
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
@@ -115,7 +115,7 @@ const Login = () => {
         {/* Register Redirect */}
         <p className="text-sm text-center opacity-70">
           Don’t have an account?{" "}
-          <Link to={"/register"} className="text-primary hover:underline">
+          <Link to={"/register"} className="text-[#f77e52] hover:underline">
             Register
           </Link>
         </p>

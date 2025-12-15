@@ -48,7 +48,7 @@ const ExtraSections = () => {
   return (
     <motion.div
       {...motionProps}
-      className="p-4 md:p-20 bg-linear-to-r from-slate-50/10 via-white/70 to-slate-50/20 rounded-2xl my-12 space-y-20"
+      className="p-4 md:p-20 glass-card my-12 space-y-20 rounded-2xl"
     >
       {/* How It Works */}
       <motion.section {...motionProps} className="text-center">
@@ -74,7 +74,7 @@ const ExtraSections = () => {
             <motion.div
               key={i}
               {...motionProps}
-              className="p-6 rounded-2xl shadow-md border bg-white/20"
+              className="p-6 rounded-2xl shadow-md border bg-[#f77e5230]"
             >
               <motion.h3
                 {...motionProps}
@@ -102,7 +102,7 @@ const ExtraSections = () => {
             <motion.details
               key={i}
               {...motionProps}
-              className="bg-white/20 border p-5 rounded-2xl"
+              className="bg-[#f77e5230] border p-5 rounded-2xl"
             >
               <summary className="cursor-pointer">
                 <motion.span {...motionProps} className="font-semibold">
@@ -131,7 +131,7 @@ const ExtraSections = () => {
             <motion.div
               key={i}
               {...motionProps}
-              className="p-6 rounded-2xl shadow-md border bg-white/20"
+              className="p-6 rounded-2xl shadow-md border bg-[#f77e5230]"
             >
               <motion.h3
                 {...motionProps}
@@ -153,7 +153,7 @@ const ExtraSections = () => {
       {/* Contact CTA */}
       <motion.section
         {...motionProps}
-        className="rounded-2xl p-10 text-center border bg-white/20"
+        className="rounded-2xl p-10 text-center border bg-[#f77e5230]"
       >
         <motion.h2 {...motionProps} className="text-3xl font-bold mb-4">
           Ready to Get Started?
@@ -165,7 +165,7 @@ const ExtraSections = () => {
 
         <motion.button
           whileTap={{ scale: 0.95 }}
-          className="px-8 py-3 rounded-2xl btn border-none font-semibold shadow-md"
+          className="px-8 py-3 rounded-2xl btn border-none bg-[#f77e5230] font-semibold shadow-md"
         >
           Contact Us
         </motion.button>

@@ -4,10 +4,13 @@ import logo from "../assets/assets-logo.png";
 import Loading from "../Components/Loading/Loading";
 import useUserRole from "../Hooks/useUserRole";
 import { Outlet } from "react-router";
+import { Bell, Plus, User } from "lucide-react";
 
 const DashboardLayout = () => {
   const [loading, setLoading] = useState(true);
   const {userInfo} = useUserRole();
+
+  const {role} = userInfo;
 
   setTimeout(() => {
     setLoading(false);
@@ -24,10 +27,10 @@ const DashboardLayout = () => {
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
-            className="btn btn-square btn-ghost"
+            className=""
           >
             {/* Sidebar toggle icon */}
-            <div className="flex items-center ml-16">
+            <div className="flex items-center ml-1 cursor-pointer">
             <img src={logo} className="rounded-full w-12 h-12" alt="" />
             <h2 className="px-2 text-xl">AssetsPro</h2>
             </div>
@@ -75,6 +78,50 @@ const DashboardLayout = () => {
                   <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 </svg>
                 <span className="is-drawer-close:hidden">Homepage</span>
+              </Link>
+            </li>
+
+            {role === 'HR_MANAGER' && <>
+                        {/* List item */}
+            <li>
+              <Link
+                to={"/dashboard/add-assets"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Add Assets"
+              >
+                {/* add icon */}
+                  <Plus width={17} />
+                <span className="is-drawer-close:hidden">Add Assets</span>
+              </Link>
+            </li>
+
+                        {/* List item */}
+            <li>
+              <Link
+                to={"/dashboard/pricing"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Subscription"
+              >
+                {/* add icon */}
+                  <Bell width={17} />
+                <span className="is-drawer-close:hidden">Subscription</span>
+              </Link>
+            </li>
+            </>
+            }
+
+
+
+            {/* List item */}
+            <li>
+              <Link
+              to={'/dashboard/profile'}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Profile"
+              >
+                {/* Settings icon */}
+                  <User width={17} />
+                <span className="is-drawer-close:hidden">Profile</span>
               </Link>
             </li>
 

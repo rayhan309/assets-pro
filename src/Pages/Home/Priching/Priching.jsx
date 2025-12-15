@@ -25,7 +25,7 @@ const Priching = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9 }}
       viewport={{ once: true }}
-      className="rounded-2xl bg-gradient-to-r from-slate-50/10 via-white/70 to-slate-50/20 p-4 md:p-20 my-12"
+      className="rounded-2xl glass-card p-4 md:p-20 my-12"
     >
       <div className="my-10">
         <h1 className="text-4xl font-bold text-center">
@@ -47,7 +47,7 @@ const Priching = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
               key={index}
-              className={` rounded-2xl cursor-pointer border shadow-xs bg-white/25 border-white ${
+              className={` rounded-2xl cursor-pointer border shadow-xs bg-[#f77e5230] border-white ${
                 index === 1 ? "-translate-y-5 shadow-2xl" : ""
               }`}
             >
@@ -86,7 +86,7 @@ const Priching = () => {
                   })}
                 </ul>
                 <div className="mt-6">
-                  <button className="btn bg-slate-900 w-full rounded-2xl">
+                  <button className="btn bg-[#f77e5280] border-none w-full rounded-2xl">
                     Subscribe
                   </button>
                 </div>

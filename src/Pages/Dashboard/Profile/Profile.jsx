@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  User,
   Mail,
   Calendar,
   Briefcase,
@@ -11,17 +10,23 @@ import {
   Bell,
   Gem,
   Building2,
+  Camera,
+  UploadCloud,
 } from "lucide-react";
-import useUserRole from "../../../Hooks/useUserRole";
-import Loading from "../../../Components/Loading/Loading";
 import Swal from "sweetalert2";
+import useUserRole from "../../../Hooks/useUserRole";
 import useAuth from "../../../Hooks/useAuth";
+import Loading from "../../../Components/Loading/Loading";
+import { useForm } from "react-hook-form";
+import useAxiosSquer from "../../../Hooks/useAxiosSquer";
 
 const Profile = () => {
   const { userInfo } = useUserRole();
   const { signOutUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { handleSubmit, register } = useForm();
+  const axiosSquer = useAxiosSquer();
 
   if (!userInfo) return null;
 
@@ -36,189 +41,220 @@ const Profile = () => {
     accountAt,
   } = userInfo;
 
-  //   handleLogoutUser
   const handleLogoutUser = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "Your account logOut!",
+      text: "You will be logged out from your account",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, logOut conirm!",
+      confirmButtonText: "Yes, Logout",
     }).then((result) => {
       if (result.isConfirmed) {
-        signOutUser()
-          .then(() => {
-            Swal.fire({
-              title: "LogOuted!",
-              text: "Your account has ben logouted.",
-              icon: "success",
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        signOutUser();
       }
     });
   };
 
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
+  // handle update profile
+  const onSubmit = async (data) => {
+    console.log(data);
 
-  return loading ? (
-    <Loading />
-  ) : (
-    <div className="flex justify-center mt-20 p-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="card w-full max-w-4xl glass-card shadow-xl rounded-2xl"
-      >
-        <div className="card-body">
-            <h1 className="text-2xl mb-6 font-bold flex items-center justify-center gap-3"><User /> Your  Info</h1>
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <div className="relative">
-              <img
-                src={photo}
-                alt={name}
-                className="w-32 h-32 rounded-full object-cover ring ring-primary ring-offset-base-100 ring-offset-2"
-              />
-              <div className="w-6 h-6 bg-green-400 rounded-full absolute bottom-0 right-3.5"></div>
-            </div>
+    const formData = new FormData();
+    formData.append("image", data.photo[0]);
+    const imagebbAPIK = import.meta.env.VITE_imagebb_sdk;
+    
+    try{
+      const res = await axiosSquer.post(`https://api.imgbb.com/1/upload?key=${imagebbAPIK}`, formData);
+      console.log(res.data);
+    }catch(err) {
+      alert(err)
+    }
+  };
 
-            <div className="flex-1 space-y-2">
-              <h2 className="text-2xl font-bold flex items-center gap-2">
-                <User className="w-6 h-6 text-primary" /> {name}
-              </h2>
-              <p className="text-sm opacity-70">Role: {role}</p>
-              <p className="flex items-center gap-2">
-                <Mail className="w-4 h-4" /> {email}
-              </p>
-              <p className="flex items-center gap-2">
-                <Calendar className="w-4 h-4" /> DOB: {dateOfBirth}
-              </p>
-              <p className="flex items-center gap-2">
-                <Briefcase className="w-4 h-4" /> {companyStatus || "COMPANY"}
-              </p>
-            </div>
+  setTimeout(() => setLoading(false), 800);
+
+  if (loading) return <Loading />;
+
+  return (
+    <div className="max-w-6xl mx-auto my-6 px-4">
+      {/* Cover Photo */}
+      <div className="relative rounded-2xl overflow-hidden shadow-lg">
+        <img
+          src="https://i.ibb.co.com/JFtVzr2d/pexels-jegor-nagel-113940522-30084316.jpg"
+          className="w-full max-h-72 object-cover"
+          alt="cover"
+        />
+        <button className="btn btn-primary btn-sm absolute right-4 bottom-8 gap-2">
+          <Camera className="w-4 h-4" />
+        </button>
+      </div>
+
+      {/* Profile Header */}
+      <div className="glass-card rounded-2xl shadow-xl p-6 relative -mt-6">
+        <div className="flex flex-col md:flex-row items-center md:items-end gap-6">
+          <div className="relative">
+            <img
+              src={photo}
+              alt={name}
+              className="w-40 h-40 rounded-full ring ring-primary ring-offset-4 object-cover"
+            />
+            <span className="w-5 h-5 bg-green-500 rounded-full absolute bottom-3 right-4" />
           </div>
 
-          <div className="divider" />
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold">{name}</h1>
+            <p className="opacity-70">{role}</p>
+            <p className="text-sm mt-1">
+              {companyStatus || "Professional User"}
+            </p>
+          </div>
 
-          {/* hr info  */}
-          {role === "HR_MANAGER" && (
-            <div className="relative">
-                <h1 className="text-2xl mb-6 font-bold flex items-center justify-center gap-3"><Building2 /> Your Company Info</h1>
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="relative">
-                  <img
-                    className="w-32 h-32 rounded-full object-cover ring ring-primary ring-offset-base-100 ring-offset-2"
-                    src={
-                      userInfo?.companyLogo ||
-                      "https://i.ibb.co.com/Rp8gtTKj/Chat-GPT-Image-Dec-3-2025-11-47-12-AM.png"
-                    }
-                    alt=""
-                  />
-                  <div className="w-6 h-6 bg-green-400 rounded-full absolute bottom-0 right-3.5"></div>
-                </div>
-
-                <div>
-                  <h2 className="text-2xl font-bold flex items-center gap-2">
-                    <Briefcase /> {userInfo?.companyName}
-                  </h2>
-
-                  <h2 className="flex items-center gap-2">
-                    <Users width={17} /> Employees Limit :{" "}
-                    {userInfo?.packageEmployees}
-                  </h2>
-
-                  <h2 className="flex items-center gap-2">
-                    <Users width={17} /> Employees Add :{" "}
-                    {userInfo?.currentEmployees}
-                  </h2>
-
-                  <h2 className="flex items-center gap-2">
-                    <Bell width={17} /> Subscription : {userInfo?.subscription}
-                  </h2>
-
-                  <h2 className="flex items-center gap-2">
-                    <Gem width={17} /> Status : {userInfo?.status}
-                  </h2>
-
-                </div>
-
-              </div>
-              <button className="btn btn-secondary absolute bottom-0 right-2">Subscription</button>
-            </div>
-          )}
-
-          <div className="divider" />
-
-          <p className="text-sm opacity-80">{message}</p>
-          <p className="text-xs opacity-60">
-            Account Created: {new Date(accountAt).toLocaleString()}
-          </p>
-
-          <div className="card-actions justify-end mt-4 gap-2">
+          <div className="flex gap-2">
             <button
-              className="btn btn-primary btn-sm gap-2"
               onClick={() => setIsOpen(true)}
+              className="btn btn-primary gap-2"
             >
-              <Edit className="w-4 h-4" /> Update Profile
+              <Edit className="w-4 h-4" /> Edit Profile
             </button>
-
             <button
               onClick={handleLogoutUser}
-              className="btn btn-outline btn-error btn-sm gap-2"
+              className="btn btn-outline btn-error gap-2"
             >
               <LogOut className="w-4 h-4" /> Logout
             </button>
           </div>
         </div>
-      </motion.div>
+      </div>
 
-      {/* Update Profile Modal */}
+      {/* Main Content */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        {/* Intro */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="card glass-card shadow-xl"
+        >
+          <div className="card-body">
+            <h2 className="card-title">Intro</h2>
+            <p className="text-sm opacity-80">
+              {message || "No bio added yet."}
+            </p>
+            <div className="divider" />
+            <p className="flex items-center gap-2 text-sm">
+              <Mail className="w-4 h-4" /> {email}
+            </p>
+            <p className="flex items-center gap-2 text-sm">
+              <Calendar className="w-4 h-4" /> {dateOfBirth}
+            </p>
+            <p className="flex items-center gap-2 text-sm">
+              <Briefcase className="w-4 h-4" />{" "}
+              {companyStatus || userInfo?.companyName}
+            </p>
+            <p className="text-xs opacity-60 mt-2">
+              Joined: {new Date(accountAt).toLocaleDateString()}
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Timeline Placeholder */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="md:col-span-2 card glass-card shadow-xl"
+        >
+          <div className="card-body">
+            <h2 className="card-title">Posts & Activity</h2>
+            <p className="text-sm opacity-70">
+              This section can be used for user posts, activities, or updates
+              (Facebook timeline style).
+            </p>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Company Info for HR */}
+      {role === "HR_MANAGER" && (
+        <div className="card glass-card shadow-xl mt-6">
+          <div className="card-body">
+            <h2 className="card-title flex items-center gap-2">
+              <Building2 /> Company Information
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4">
+              <p className="flex items-center gap-2">
+                <Users className="w-4 h-4" /> Employees Limit:{" "}
+                {userInfo?.packageEmployees}
+              </p>
+              <p className="flex items-center gap-2">
+                <Users className="w-4 h-4" /> Employees Added:{" "}
+                {userInfo?.currentEmployees}
+              </p>
+              <p className="flex items-center gap-2">
+                <Bell className="w-4 h-4" /> Subscription:{" "}
+                {userInfo?.subscription}
+              </p>
+              <p className="flex items-center gap-2">
+                <Gem className="w-4 h-4" /> Status: {userInfo?.status}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Update Modal */}
       {isOpen && (
-        <dialog className="modal modal-open">
-          <motion.div
+        <dialog className="modal modal-open glass-card">
+          <motion.form
+            onSubmit={handleSubmit(onSubmit)}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="modal-box rounded-2xl"
+            className="modal-box glass-card space-y-3"
           >
             <h3 className="font-bold text-lg mb-4">Update Profile</h3>
 
-            <div className="space-y-3">
-              <input
-                type="text"
-                defaultValue={name}
-                className="input input-bordered w-full"
-                placeholder="Name"
-              />
-              <input
-                type="email"
-                defaultValue={email}
-                className="input input-bordered w-full"
-                placeholder="Email"
-              />
-              <input
-                type="date"
-                defaultValue={dateOfBirth}
-                className="input input-bordered w-full"
-              />
+            {/* name */}
+            <label>Your Name</label>
+            <input {...register("name")} className="input-pro w-full mb-2" defaultValue={name} />
+
+            {/* photo */}
+            <div className="space-y-2">
+              <label className="font-medium">Your Photo</label>
+
+              <label
+                className="flex flex-col items-center justify-center w-full h-28 md:h-36 border-2 border-dashed rounded-xl cursor-pointer 
+                      hover:border-primary transition bg-base-200/40"
+              >
+                <UploadCloud className="w-8 h-8 text-primary mb-2" />
+                <p className="text-sm font-medium">
+                  Click to upload or drag & drop
+                </p>
+                <p className="text-xs opacity-60">PNG, JPG up to 2MB</p>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  {...register("photo")}
+                />
+              </label>
             </div>
 
+            {/* Date of Birth */}
+            <label>Date of Birth</label>
+            <input
+              type="date"
+              {...register("dateOfBirth")}
+              className="input-pro w-full"
+              defaultValue={dateOfBirth}
+            />
+
+            {/* actions */}
             <div className="modal-action">
-              <button
-                className="btn btn-outline"
-                onClick={() => setIsOpen(false)}
-              >
+              <button className="btn" onClick={() => setIsOpen(false)}>
                 Cancel
               </button>
-              <button className="btn btn-primary">Save Changes</button>
+              <button className="btn btn-primary">Save</button>
             </div>
-          </motion.div>
+          </motion.form>
         </dialog>
       )}
     </div>

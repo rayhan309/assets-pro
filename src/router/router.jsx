@@ -9,6 +9,10 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import Profile from "../Pages/Dashboard/Profile/Profile";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import PrivitePage from "../Context/PrivitePage";
+import Subscription from "../Pages/Dashboard/Subscription/Subscription";
+import AddAssets from "../Pages/Dashboard/AddAssets/AddAssets";
+import HRPrivitePage from "../Context/HRPrivitePage";
+import JoinHR from "../Pages/Home/JoinHR/JoinHR";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +24,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+      },
+      {
+        path: "join-hr",
+        Component: JoinHR,
       },
       {
         path: "/forbidden",
@@ -46,6 +54,22 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         Component: Profile,
+      },
+      {
+        path: "pricing",
+        element: (
+          <HRPrivitePage>
+            <Subscription />
+          </HRPrivitePage>
+        ),
+      },
+      {
+        path: "add-assets",
+        element: (
+          <HRPrivitePage>
+            <AddAssets />
+          </HRPrivitePage>
+        ),
       },
     ],
   },

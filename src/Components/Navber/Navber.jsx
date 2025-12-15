@@ -2,12 +2,14 @@ import React, { use, useState } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../../assets/assets-logo.png";
 import { AuthContext } from "../../Context/AuthContext";
-import { ChevronDown, ChevronUp, House } from "lucide-react";
+import { ChevronDown, ChevronUp, House, LayoutDashboard, SquarePlus } from "lucide-react";
 import Swal from "sweetalert2";
+import useUserRole from "../../Hooks/useUserRole";
 
 const Navber = () => {
   const { user, signOutUser } = use(AuthContext);
   const [open, setOpen] = useState(false);
+  const {userInfo} = useUserRole();
 
   const links = (
     <>
@@ -18,9 +20,17 @@ const Navber = () => {
       </li>
       <li className="">
         <NavLink to={"/dashboard"}>
-          <House width={17} /> Dashboard
+          <LayoutDashboard width={17} /> Dashboard
         </NavLink>
       </li>
+
+      {userInfo?.role !== 'HR_MANAGER' && (
+        <li>
+          <NavLink to={'/join-hr'}>
+            <SquarePlus width={17} /> Join as HR Manager
+            </NavLink>
+        </li>
+      )}
     </>
   );
   // handleSignOutUser
@@ -124,7 +134,10 @@ const Navber = () => {
               {open ? <ChevronUp /> : <ChevronDown />}
             </div>
           ) : (
-            <Link to={"/login"} className="btn bg-slate-900 rounded-2xl">
+            <Link
+              to={"/login"}
+              className="btn bg-[#f77e5230] border-none rounded-2xl"
+            >
               LogIn
             </Link>
           )}

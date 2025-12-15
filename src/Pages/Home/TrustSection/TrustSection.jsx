@@ -7,17 +7,17 @@ import { useEffect } from "react";
 
 const stats = [
   {
-    icon: <Building2 className="w-8 h-8 text-emerald-600" />,
+    icon: <Building2 className="w-8 h-8 text-[#f77e52]" />,
     value: "100+",
     label: "Companies Trust Us",
   },
   {
-    icon: <Users className="w-8 h-8 text-emerald-600" />,
+    icon: <Users className="w-8 h-8 text-[#f77e52]" />,
     value: "50k+",
     label: "Active Users",
   },
   {
-    icon: <ShieldCheck className="w-8 h-8 text-emerald-600" />,
+    icon: <ShieldCheck className="w-8 h-8 text-[#f77e52]" />,
     value: "99.9%",
     label: "Uptime Guarantee",
   },
@@ -33,7 +33,7 @@ const TrustSection = () => {
     }, []);
 
   return (
-    <section className="my-12 bg-gradient-to-r from-slate-50/10 via-white/70 to-slate-50/20 rounded-2xl p-4 md:p-20">
+    <section className="my-12 glass-card rounded-2xl p-4 md:p-20">
       <div className="">
         {/* Header */}
         <motion.div
@@ -59,7 +59,7 @@ const TrustSection = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.15 }}
-              className="flex flex-col items-center text-center p-6 rounded-xl border bg-white/20"
+              className="flex flex-col items-center text-center p-6 rounded-xl border bg-[#f77e5230]"
             >
               {stat.icon}
               <h3 className="text-3xl font-bold mt-4">{stat.value}</h3>
@@ -76,7 +76,7 @@ const TrustSection = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
-              className="bg-white/20 border p-6 rounded-xl shadow-sm hover:shadow-md transition"
+              className="bg-[#f77e5230] border p-6 rounded-xl shadow-sm hover:shadow-md transition"
             >
               {/* Stars */}
               <div className="flex mb-4 text-yellow-400">

@@ -9,10 +9,10 @@ export default function Banner({
   imageUrl = "https://images.unsplash.com/photo-1542744095-291d1f67b221?auto=format&fit=crop&w=1600&q=80",
 }) {
   return (
-    <section className="relative bg-gradient-to-r from-slate-50/10 via-white to-slate-50/20 my-10 rounded-2xl overflow-hidden">
+    <section className="relative glass-card my-10 rounded-2xl overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 -z-10">
-        <div className="h-full w-full bg-gradient-to-r from-slate-50/10 via-white to-slate-50/20" />
+        <div className="h-full w-full bg-gradient-to-r from-slate-50/10 via-[#f77e5280] to-slate-50/20" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-28">
@@ -24,11 +24,11 @@ export default function Banner({
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="space-y-6"
           >
-            <p className="inline-block rounded-full bg-emerald-100 text-emerald-700 px-3 py-1 text-sm font-medium shadow-sm">
+            <p className="inline-block rounded-full bg-emerald-100 text-[#f77e52] px-3 py-1 text-sm font-medium shadow-sm">
               Trusted by high-growth teams
             </p>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-slate-900">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-[#f77e5290]">
               {title}
             </h1>
 
@@ -36,7 +36,7 @@ export default function Banner({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.15, duration: 0.6 }}
-              className="text-lg text-slate-600 max-w-xl"
+              className="text-lg max-w-xl"
             >
               {subtitle}
             </motion.p>
@@ -57,7 +57,7 @@ export default function Banner({
 
               <a
                 href="#"
-                className="inline-flex items-center border-none text-sm justify-center bg-gray-300 rounded-2xl btn py-3 "
+                className="inline-flex items-center border-none text-sm justify-center bg-[#f77e5280] text-white rounded-2xl btn py-3 "
                 aria-label={secondaryCta}
               >
                 {secondaryCta}
@@ -68,9 +68,9 @@ export default function Banner({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.35 }}
-              className="pt-4 text-sm text-slate-500"
+              className="pt-4 text-sm"
             >
-              <span className="font-medium text-slate-800">24/7 support</span>
+              <span className="font-medium">24/7 support</span>
               <span className="mx-2">•</span>
               <span>Enterprise-ready security</span>
             </motion.div>

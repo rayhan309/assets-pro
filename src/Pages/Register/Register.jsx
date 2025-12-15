@@ -7,10 +7,11 @@ import useAuth from "../../Hooks/useAuth";
 import confetti from "canvas-confetti";
 import Loading from "../../Components/Loading/Loading";
 import { useLocation, useNavigate } from "react-router";
+import { UploadCloud } from "lucide-react";
 
 const Register = () => {
   const [role, setRole] = useState("hr");
-  const axiosSquer = useAxiosSquer(); 
+  const axiosSquer = useAxiosSquer();
   const { createUser, updateUser } = useAuth();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -52,8 +53,8 @@ const Register = () => {
         console.log(response);
         if (response.data.data.url) {
           logoImg = response.data.data.url;
-        }else{
-          toast.error('url not found')
+        } else {
+          toast.error("url not found");
         }
       } catch (err) {
         console.log(err);
@@ -201,14 +202,37 @@ const Register = () => {
                   <p className="error-text">{errors.companyName.message}</p>
                 )}
 
-                {/* Company Logo */}
-                <label>Company Logo</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  {...register("companyLogo")}
-                  className="file-input file-input-bordered w-full"
-                />
+
+                {/* Company photo */}
+                <div className="space-y-2">
+                  <label className="font-medium">Company Logo</label>
+
+                  <label
+                    className="flex flex-col items-center justify-center w-full h-28 md:h-36 border-2 border-dashed rounded-xl cursor-pointer 
+                    hover:border-primary transition bg-base-200/40"
+                  >
+                    <UploadCloud className="w-8 h-8 text-primary mb-2" />
+                    <p className="text-sm font-medium">
+                      Click to upload or drag & drop
+                    </p>
+                    <p className="text-xs opacity-60">PNG, JPG up to 2MB</p>
+
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      {...register("companyLogo", {
+                        required: "Company logo is required",
+                      })}
+                    />
+                  </label>
+
+                  {errors.companyLogo && (
+                    <p className="text-error text-sm">
+                      {errors.companyLogo.message}
+                    </p>
+                  )}
+                </div>
 
                 {/* HR Name */}
                 <label>Full Name</label>
@@ -223,17 +247,39 @@ const Register = () => {
                   <p className="error-text">{errors.name.message}</p>
                 )}
 
-                {/* Company Logo */}
-                <label>Your Photo</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  {...register("photo")}
-                  className="file-input file-input-bordered w-full"
-                />
+                {/* your photo */}
+                <div className="space-y-2">
+                  <label className="font-medium">Your Photo</label>
+
+                  <label
+                    className="flex flex-col items-center justify-center w-full h-28 md:h-36 border-2 border-dashed rounded-xl cursor-pointer 
+                      hover:border-primary transition bg-base-200/40"
+                  >
+                    <UploadCloud className="w-8 h-8 text-primary mb-2" />
+                    <p className="text-sm font-medium">
+                      Click to upload or drag & drop
+                    </p>
+                    <p className="text-xs opacity-60">PNG, JPG up to 2MB</p>
+
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      {...register("photo", {
+                        required: "Your photo is required",
+                      })}
+                    />
+                  </label>
+
+                  {errors.photo && (
+                    <p className="text-error text-sm">
+                      {errors.photo.message}
+                    </p>
+                  )}
+                </div>
 
                 {/* Package Info */}
-                <div className="rounded-xl bg-primary/10 border border-primary/20 p-4">
+                <div className="rounded-xl bg-[#f77e5240] border border-primary/20 p-4">
                   <p className="font-semibold">Default Package</p>
                   <p className="text-sm opacity-70">
                     5 Employees • $0 • Instant Asset Management
@@ -262,16 +308,38 @@ const Register = () => {
                   <p className="error-text">{errors.name.message}</p>
                 )}
 
-                {/* Company Logo */}
-                <label>Your Photo</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  {...register("photo")}
-                  className="file-input file-input-bordered w-full"
-                />
+                {/* Your Logo */}
+                <div className="space-y-2">
+                  <label className="font-medium">Your Photo</label>
 
-                <div className="alert alert-info text-sm">
+                  <label
+                    className="flex flex-col items-center justify-center w-full h-28 md:h-36 border-2 border-dashed rounded-xl cursor-pointer 
+                      hover:border-primary transition bg-base-200/40"
+                  >
+                    <UploadCloud className="w-8 h-8 text-primary mb-2" />
+                    <p className="text-sm font-medium">
+                      Click to upload or drag & drop
+                    </p>
+                    <p className="text-xs opacity-60">PNG, JPG up to 2MB</p>
+
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      {...register("photo", {
+                        required: "Your photo is required",
+                      })}
+                    />
+                  </label>
+
+                  {errors.photo && (
+                    <p className="text-error text-sm">
+                      {errors.photo.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="alert alert-info bg-[#f77e5280] border-none text-white text-sm">
                   No company affiliation. You can join a company later.
                 </div>
               </motion.div>
@@ -315,7 +383,7 @@ const Register = () => {
 
           <button
             disabled={isSubmitting}
-            className="btn btn-primary w-full rounded-xl mt-4"
+            className="btn bg-[#f77e52] border-none w-full rounded-xl mt-4"
           >
             {isSubmitting ? "Creating Account..." : "Register"}
           </button>
