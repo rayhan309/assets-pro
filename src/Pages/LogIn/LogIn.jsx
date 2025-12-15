@@ -1,30 +1,56 @@
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import { useState } from "react";
+import confetti from "canvas-confetti";
+import Loading from "../../Components/Loading/Loading";
+import { toast, ToastContainer } from "react-toastify";
+import { useLocation } from "react-router";
+
+const fireConfetti = () => {
+  confetti({
+    particleCount: 100, // number of particles
+    spread: 70, // spread of particles
+    origin: { y: 0.6 }, // start point on screen
+  });
+};
 
 const Login = () => {
   const { signInUser } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("LOGIN DATA:", data);
 
     signInUser(data.email, data.password)
       .then((res) => {
-        console.log(res);
+        if (res.user) {
+          fireConfetti();
+          reset();
+          navigate(location?.state || '/');
+        }
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err);
       });
   };
 
-  return (
-    <div className="min-h-screen my-20 flex items-center justify-center px-4">
+  setTimeout(() => {
+    setLoading(false);
+  }, 1500);
+
+  return loading ? (
+    <Loading />
+  ) : (
+    <div className="my-20 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -99,6 +125,7 @@ const Login = () => {
           © AssetsPro • Secure Asset Management
         </p>
       </motion.div>
+      <ToastContainer />
     </div>
   );
 };

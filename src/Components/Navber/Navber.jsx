@@ -1,11 +1,13 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../../assets/assets-logo.png";
 import { AuthContext } from "../../Context/AuthContext";
-import { House } from "lucide-react";
+import { ChevronDown, ChevronUp, House } from "lucide-react";
+import Swal from "sweetalert2";
 
 const Navber = () => {
   const { user, signOutUser } = use(AuthContext);
+  const [open, setOpen] = useState(false);
 
   const links = (
     <>
@@ -14,11 +16,43 @@ const Navber = () => {
           <House width={17} /> Home
         </NavLink>
       </li>
+      <li className="">
+        <NavLink to={"/dashboard"}>
+          <House width={17} /> Dashboard
+        </NavLink>
+      </li>
     </>
   );
+  // handleSignOutUser
+  const handleSignOutUser = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Your account logOut!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, logOut conirm!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOutUser()
+          .then(() => {
+            setOpen(false);
+            Swal.fire({
+              title: "LogOuted!",
+              text: "Your account has ben logouted.",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
 
   return (
-    <div className="bg-white/20 fixed top-0 left-0 z-50 w-full shadow-sm">
+    <div className="glass-card fixed top-0 left-0 z-50 w-full shadow-sm">
       <div className="navbar w-11/12 mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -47,21 +81,48 @@ const Navber = () => {
             </ul>
           </div>
           <Link className="flex items-center gap-1">
-            <img className="w-12 h-12 rounded-2xl" src={logo} alt="" />
-            <h4 className="text-3xl">AssetsPro</h4>
+            <img className="w-12 h-12 rounded-full" src={logo} alt="" />
+            <h4 className="text-2xl">AssetsPro</h4>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 text-white">{links}</ul>
         </div>
         <div className="navbar-end">
-          {user ? (
+          <div
+            className={`absolute w-40 -top-48 -right-5 z-20 glass-card p-2 rounded-xl transition-all duration-1000 ease-out ${
+              open ? "top-18 -right-5 " : ""
+            }`}
+          >
+            <Link
+              to={"/dashboard/profile"}
+              className="btn btn-ghost w-full hover:bg-white/10 border-none"
+            >
+              Profile
+            </Link>
             <button
-              onClick={() => signOutUser()}
-              className="btn bg-slate-900 rounded-2xl"
+              onClick={handleSignOutUser}
+              className="btn btn-ghost w-full hover:bg-white/10 border-none"
             >
               LogOut
             </button>
+          </div>
+
+          {user ? (
+            <div
+              onClick={() => setOpen(!open)}
+              className="cursor-pointer flex justify-end items-end relative"
+            >
+              <img
+                title={user?.displayName}
+                className="w-12 h-12 rounded-full border-2"
+                src={user?.photoURL}
+                alt={user?.displayName}
+              />
+              <div className="w-3 h-3 rounded-full bg-green-500 absolute bottom-0 right-6"></div>
+
+              {open ? <ChevronUp /> : <ChevronDown />}
+            </div>
           ) : (
             <Link to={"/login"} className="btn bg-slate-900 rounded-2xl">
               LogIn

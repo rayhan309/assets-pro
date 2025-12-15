@@ -62,7 +62,7 @@ const AboutUs = () => {
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="p-6 rounded-2xl shadow-lg border bg-white/30 border-slate-100 hover:shadow-xl transition cursor-pointer"
+              className="p-6 rounded-2xl shadow-lg border bg-white/20 border-slate-100 hover:shadow-xl transition cursor-pointer"
             >
               <div className="mb-4">{item.icon}</div>
               <h3 className="text-xl font-semiboldmb-2">{item.title}</h3>

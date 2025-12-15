@@ -47,7 +47,7 @@ const Priching = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
               key={index}
-              className={`card rounded-2xl cursor-pointer border shadow-xs bg-white/25 border-white ${
+              className={` rounded-2xl cursor-pointer border shadow-xs bg-white/25 border-white ${
                 index === 1 ? "-translate-y-5 shadow-2xl" : ""
               }`}
             >

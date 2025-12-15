@@ -4,13 +4,13 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <div className="bg-white/20 rounded-t-2xl">
+    <div className="glass-card rounded-t-2xl">
       <footer className="footer sm:footer-horizontal w-11/12 mx-auto text-neutral-content p-10">
         <nav>
 
           <Link className="flex items-center gap-1">
-            <img className="w-12 h-12 rounded-2xl" src={logo} alt="" />
-            <h4 className="text-3xl">AssetsPro</h4>
+            <img className="w-12 h-12 rounded-full" src={logo} alt="" />
+            <h4 className="text-2xl">AssetsPro</h4>
           </Link>
 
           <p>This application is best populer to world, <br /> reason for  best sevics perfomance 24/7 live time suppot<br /> etc. Iure natus numquam expedita! Provident, quia <br /> dolores! Illo reiciendis minus eaque eius suscipit temporibus <br /> repellat sunt explicabo, fuga deserunt! Cum, commodi amet!</p>
@@ -130,7 +130,7 @@ const Footer = () => {
       </footer>
 
       <div className="p-6 bg-white/5">
-        <p className="text-center">© AssetsPro • Secure Asset Management</p>
+        <p className="text-center">© AssetsPro • Secure Asset Management - 2025</p>
       </div>
     </div>
   );

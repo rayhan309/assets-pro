@@ -5,13 +5,16 @@ import useAxiosSquer from "../../Hooks/useAxiosSquer";
 import { toast, ToastContainer } from "react-toastify";
 import useAuth from "../../Hooks/useAuth";
 import confetti from "canvas-confetti";
+import Loading from "../../Components/Loading/Loading";
+import { useLocation, useNavigate } from "react-router";
 
 const Register = () => {
   const [role, setRole] = useState("hr");
-  const axiosSquer = useAxiosSquer();
-  const [photoUrl, setPhotoUrl] = useState("");
-  const [companyURL, setCompany] = useState("");
+  const axiosSquer = useAxiosSquer(); 
   const { createUser, updateUser } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const fireConfetti = () => {
     confetti({
@@ -31,78 +34,87 @@ const Register = () => {
   const onSubmit = async (data) => {
     const imagebbAPIK = import.meta.env.VITE_imagebb_sdk;
 
-    // company photo
-    const formData2 = new FormData();
-    formData2.append("image", data?.companyLogo[0]);
-
     // user photo
     const formData = new FormData();
     formData.append("image", data.photo[0]);
-    fireConfetti();
+    let logoImg = "";
 
     // company logo
     if (role === "hr") {
+      // company photo
+      const formData = new FormData();
+      formData.append("image", data?.companyLogo[0]);
       try {
-        const res = await axiosSquer.post(
+        const response = await axiosSquer.post(
           `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
-          formData2
+          formData
         );
-        if (res.data.data.url) {
-          setCompany(res.data.data.url);
+        console.log(response);
+        if (response.data.data.url) {
+          logoImg = response.data.data.url;
+        }else{
+          toast.error('url not found')
         }
       } catch (err) {
         console.log(err);
-        alert(err, "photo");
+        toast.error(err, "photo");
       }
     }
-
-    let payload = {};
-
-    if (role === "hr") {
-      payload = {
-        role: "HR_MANAGER",
-        companyName: data.companyName,
-        companyLogo: companyURL,
-        hrName: data.hrName,
-        dateOfBirth: data.dateOfBirth,
-        photo: photoUrl,
-        email: data.email,
-        password: data.password,
-        packageEmployees: 5,
-        packagePrice: 0,
-        status: "ACTIVE",
-      };
-    } else {
-      payload = {
-        role: "EMPLOYEE",
-        name: data.name,
-        dateOfBirth: data.dateOfBirth,
-        photo: photoUrl,
-        email: data.email,
-        password: data.password,
-        companyStatus: "NO_COMPANY",
-        message: "No company affiliation",
-      };
-    }
-
-    console.log("REGISTER PAYLOAD:", payload);
 
     // create user
     // user image
     try {
-      const res = await axiosSquer.post(
+      const resp = await axiosSquer.post(
         `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
         formData
       );
-      console.log(res);
-      if (res.data.data.url) {
-        setPhotoUrl(res.data.data.url);
+      if (resp.data.data.url) {
         createUser(data.email, data.password)
           .then((res) => {
             if (res.user) {
-              updateUser(data.name, res.data.data.url)
-                .then(() => {
-                  console.log({ namsjhsfjhdsfg: photoUrl });
+              updateUser(data.name, resp.data.data.url)
+                .then(async () => {
+                  let payload = {};
+
+                  if (role === "hr") {
+                    // console.log(companyLogo, 'companyLogo');
+                    payload = {
+                      role: "HR_MANAGER",
+                      companyName: data.companyName,
+                      companyLogo: logoImg,
+                      name: data.name,
+                      dateOfBirth: data.dateOfBirth,
+                      photo: resp.data.data.url,
+                      email: data.email,
+                      password: data.password,
+                      packageEmployees: 5,
+                      currentEmployees: 0,
+                      subscription: "basic",
+                      status: "ACTIVE",
+                    };
+                  } else {
+                    payload = {
+                      role: "EMPLOYEE",
+                      name: data.name,
+                      dateOfBirth: data.dateOfBirth,
+                      photo: resp.data.data.url,
+                      email: data.email,
+                      password: data.password,
+                      companyStatus: "NO_COMPANY",
+                      message: "No company affiliation",
+                    };
+                  }
+
+                  // user save database
+                  try {
+                    const res = await axiosSquer.post(`/users`, payload);
+                    console.log(res);
+                  } catch (err) {
+                    toast.error(err);
+                  }
+
+                  fireConfetti();
+                  navigate(location?.state || "/");
                 })
                 .catch((err) => {
                   console.log(err);
@@ -117,18 +129,17 @@ const Register = () => {
       toast.error(err);
     }
 
-    // user save database
-    // try{
-    //   const res = await axiosSquer(`/users`, payload);
-    //   console.log(res.data);
-    // }catch(err) {
-    //   toast.error(err);
-    // }
-
     reset();
   };
 
-  return (
+  // loadin component
+  setTimeout(() => {
+    setLoading(false);
+  }, 1500);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="min-h-screen my-20 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}

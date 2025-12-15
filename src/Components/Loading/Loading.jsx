@@ -8,19 +8,19 @@ const Loading = () => {
         <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="chipGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#2d2d2d"></stop>
-              <stop offset="100%" stop-color="#0f0f0f"></stop>
+              <stop offset="0%" stopColor="#2d2d2d"></stop>
+              <stop offset="100%" stopColor="#0f0f0f"></stop>
             </linearGradient>
 
             <linearGradient id="textGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#eeeeee"></stop>
-              <stop offset="100%" stop-color="#888888"></stop>
+              <stop offset="0%" stopColor="#eeeeee"></stop>
+              <stop offset="100%" stopColor="#888888"></stop>
             </linearGradient>
 
             <linearGradient id="pinGradient" x1="1" y1="0" x2="0" y2="0">
-              <stop offset="0%" stop-color="#bbbbbb"></stop>
-              <stop offset="50%" stop-color="#888888"></stop>
-              <stop offset="100%" stop-color="#555555"></stop>
+              <stop offset="0%" stopColor="#bbbbbb"></stop>
+              <stop offset="50%" stopColor="#888888"></stop>
+              <stop offset="100%" stopColor="#555555"></stop>
             </linearGradient>
           </defs>
 
@@ -59,7 +59,7 @@ const Loading = () => {
             ry="20"
             fill="url(#chipGradient)"
             stroke="#222"
-            stroke-width="3"
+            strokeWidth="3"
             filter="drop-shadow(0 0 6px rgba(0,0,0,0.8))"
           ></rect>
 
@@ -139,8 +139,8 @@ const Loading = () => {
             font-family="Arial, sans-serif"
             font-size="22"
             fill="url(#textGradient)"
-            text-anchor="middle"
-            alignment-baseline="middle"
+            textAnchor="middle"
+            alignmentHaseline="middle"
           >
             Loading
           </text>
