@@ -31,6 +31,7 @@ const RequestAnAsset = () => {
       assetId: selectedAsset._id,
       assetName: selectedAsset.productName,
       assetType: selectedAsset.productType,
+      assetImage: selectedAsset.productImage,
       requesterEmail: user?.email,
       requesterName: user?.displayName,
       hrEmail: selectedAsset.hrEmail,
@@ -100,6 +101,7 @@ const RequestAnAsset = () => {
             </h3>
             <p className="text-sm my-2">Type: {asset.productType}</p>
             <p className="text-sm mb-2">Available: {asset.availableQuantity}</p>
+            <p className="text-sm mb-2">Company: {asset.hrCompanyName}</p>
 
             <button
               onClick={() => setSelectedAsset(asset)}

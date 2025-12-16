@@ -51,7 +51,7 @@ const MyAssets = () => {
           <tbody>
             {assets.map((asset, index) => (
               <tr key={asset._id} className="glass rounded-xl">
-                <td>{index + 1}</td>
+                <td>{index + 1}.</td>
 
                 {/* Asset Info */}
                 <td className="flex items-center gap-3">
@@ -91,7 +91,7 @@ const MyAssets = () => {
 
                 {/* Requests */}
                 <td>
-                  <span className="badge badge-outline">
+                  <span className="badge badge-outline badge-primary">
                     {asset.requestCount}
                   </span>
                 </td>
@@ -102,7 +102,7 @@ const MyAssets = () => {
                 </td>
 
                 {/* Actions */}
-                <td className="flex gap-2">
+                <td className="flex items-center mb-4 gap-2">
                   <button className="btn btn-xs btn-outline btn-primary">
                     <Edit size={14} />
                   </button>

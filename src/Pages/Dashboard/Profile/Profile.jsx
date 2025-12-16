@@ -61,12 +61,15 @@ const Profile = () => {
     const formData = new FormData();
     formData.append("image", data.photo[0]);
     const imagebbAPIK = import.meta.env.VITE_imagebb_sdk;
-    
-    try{
-      const res = await axios.post(`https://api.imgbb.com/1/upload?key=${imagebbAPIK}`, formData);
+
+    try {
+      const res = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
+        formData
+      );
       console.log(res.data);
-    }catch(err) {
-      alert(err)
+    } catch (err) {
+      alert(err);
     }
   };
 
@@ -136,7 +139,13 @@ const Profile = () => {
           <div className="card-body">
             <h2 className="card-title">Intro</h2>
             <p className="text-sm opacity-80">
-              {message || "No bio added yet."}
+              {userInfo.role === "HR_MANAGER" ? (
+                <div>
+                  <p>My employeis count : {userInfo?.currentEmployees}</p>
+                </div>
+              ) : (
+                <p>{message}</p>
+              )}
             </p>
             <div className="divider" />
             <p className="flex items-center gap-2 text-sm">
@@ -163,10 +172,13 @@ const Profile = () => {
         >
           <div className="card-body">
             <h2 className="card-title">Posts & Activity</h2>
-            <p className="text-sm opacity-70">
-              This section can be used for user posts, activities, or updates
-              (Facebook timeline style).
-            </p>
+              <div>
+                <p>
+                  sorry im a jonior developer. jokhon sniyer hobo rieltime post
+                  system dibo akhono parbo kintu somoi nai man
+                </p>
+              </div>
+       
           </div>
         </motion.div>
       </div>
@@ -212,7 +224,11 @@ const Profile = () => {
 
             {/* name */}
             <label>Your Name</label>
-            <input {...register("name")} className="input-pro w-full mb-2" defaultValue={name} />
+            <input
+              {...register("name")}
+              className="input-pro w-full mb-2"
+              defaultValue={name}
+            />
 
             {/* photo */}
             <div className="space-y-2">

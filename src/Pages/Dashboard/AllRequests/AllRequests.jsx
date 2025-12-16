@@ -4,13 +4,21 @@ import useAxiosSquer from "../../../Hooks/useAxiosSquer";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../Components/Loading/Loading";
 import Swal from "sweetalert2";
+import useUserRole from "../../../Hooks/useUserRole";
+import { useNavigate } from "react-router";
 
 const AllRequests = () => {
   const { user } = useAuth();
   const axiosSquer = useAxiosSquer();
+  const { userInfo } = useUserRole();
+  const navigate = useNavigate();
 
   // employ data
-  const { data: requests = [], isLoading } = useQuery({
+  const {
+    data: requests = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["myRequests", user?.email],
     queryFn: async () => {
       const res = await axiosSquer.get(`/requests/role?email=${user?.email}`);
@@ -21,9 +29,10 @@ const AllRequests = () => {
   if (isLoading) return <Loading />;
 
   //   handleRejected
-  const handleRejected = (id) => {
-    if (id) {
-      const status = "rejected";
+  const handleRejected = (asset) => {
+    if (asset) {
+      const hrEmail = asset?.hrEmail;
+      const status = { status: "rejected", hrEmail };
 
       Swal.fire({
         title: "Are you sure?",
@@ -34,15 +43,17 @@ const AllRequests = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           axiosSquer
-            .patch(`/requests/${id}`, status.status)
+            .patch(`/requests/${asset._id}/reject`, status)
             .then((res) => {
-              console.log(res.data);
-              Swal.fire({
-                icon: "success",
-                title: "Employ has been rejected.",
-                showConfirmButton: false,
-                timer: 1500,
-              });
+              if (res.data.modifiedCount) {
+                refetch();
+                Swal.fire({
+                  icon: "success",
+                  title: "Employ has been rejected.",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
             })
             .catch((err) => {
               console.log(err);
@@ -52,6 +63,42 @@ const AllRequests = () => {
       });
     }
   };
+
+  // handleApprove
+  const handleApprove = (obj) => {
+    const object = {...obj};
+    if (obj) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You will be approved from your employe",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Approve",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosSquer
+            .patch(`/requests/${obj._id}/approve`, object)
+            .then((res) => {
+              if (res.data) {
+                refetch();
+                Swal.fire({
+                  icon: "success",
+                  title: "Employ has been Approved.",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              alert("status not a change");
+            });
+        }
+      });
+    }
+  };
+
+  // console.log(requests);
 
   return (
     <div className="overflow-x-auto max-w-7xl mx-auto mt-10 glass-card shadow-xl rounded-2xl p-6">
@@ -78,7 +125,10 @@ const AllRequests = () => {
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
                         <img
-                          src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                          src={
+                            request?.assetImage ||
+                            "https://img.daisyui.com/images/profile/demo/2@94.webp"
+                          }
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>
@@ -94,7 +144,13 @@ const AllRequests = () => {
                 <td>
                   {request.assetName}
                   <br />
-                  <span className="badge badge-primary badge-sm">
+                  <span
+                    className={`badge badge-sm ${
+                      request.assetType === "Returnable"
+                        ? "badge-warning"
+                        : "badge-success"
+                    }`}
+                  >
                     {request.assetType}
                   </span>
                 </td>
@@ -103,17 +159,42 @@ const AllRequests = () => {
                   className={`${
                     request.requestStatus === "pending"
                       ? "badge badge-sm badge-secondary mt-6 text-primary"
-                      : request.requestStatus === 'rejected' ? "badge badge-sm badge-warning mt-6 text-primary" : ""
+                      : request.requestStatus === "rejected"
+                      ? "badge badge-sm badge-warning mt-6 text-red-700"
+                      : "badge badge-sm bg-yellow-400 border-none text-primary mt-6"
                   }`}
                 >
-                  {request.requestStatus}..
+                  {request.requestStatus}.
                 </td>
                 <th>
-                  <button className="btn btn-outline btn-primary btn-xs mr-4">
+                  {/* conditional onclick mama my first */}
+                  <button
+                    // onClick={() => handleApprove(request)}
+                    onClick={() => {
+                      if (
+                        userInfo.packageEmployees <= userInfo.currentEmployees
+                      ) {
+                        Swal.fire({
+                          icon: "error",
+                          title: "Oops...",
+                          text: "Please upgrade your package!",
+                          showCancelButton: true,
+                          confirmButtonText: "Go to Upgrade",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            navigate("/dashboard/pricing");
+                          }
+                        });
+                        return;
+                      }
+                      handleApprove(request);
+                    }}
+                    className="btn btn-outline btn-primary btn-xs mr-4"
+                  >
                     Approved
                   </button>
                   <button
-                    onClick={() => handleRejected(request._id)}
+                    onClick={() => handleRejected(request)}
                     className="btn btn-outline btn-warning btn-xs"
                   >
                     Rejected
@@ -122,6 +203,14 @@ const AllRequests = () => {
               </tr>
             );
           })}
+
+          {requests.length === 0 && (
+            <tr>
+              <td colSpan="8" className="text-center py-10 opacity-60">
+                No request found
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

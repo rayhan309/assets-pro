@@ -30,11 +30,20 @@ const Navber = () => {
           <House width={17} /> Home
         </NavLink>
       </li>
-      <li className="">
-        <NavLink to={"/dashboard/my-assets"}>
-          <LayoutDashboard width={17} /> Dashboard
-        </NavLink>
-      </li>
+
+      {userInfo.role === "HR_MANAGER" ? (
+        <li className="">
+          <NavLink to={"/dashboard/my-assets"}>
+            <LayoutDashboard width={17} /> Dashboard
+          </NavLink>
+        </li>
+      ) : (
+        <li className="">
+          <NavLink to={"/dashboard/my-assetsemploy"}>
+            <LayoutDashboard width={17} /> Dashboard
+          </NavLink>
+        </li>
+      )}
     </>
   );
   // handleSignOutUser

@@ -55,7 +55,7 @@ const Subscription = () => {
                   </p>
                   <div className="mb-6 text-primary">
                     <span className="text-3xl font-bold">${plan.price}</span>
-                    <span className="text-xl font-normal">/year</span>
+                    <span className="text-xl font-normal">/Month</span>
                   </div>
 
                   <ul className="space-y-3 mb-8 ml-10 flex-1">
@@ -71,7 +71,7 @@ const Subscription = () => {
                   </ul>
 
                   <button
-                    className={`w-full btn border-none px-8 bg-[#f77e52] rounded-xl py-3 text-sm font-semibold transition mb-5`}
+                    className={`w-full btn border-none bg-primary rounded-xl py-3 text-sm font-semibold transition mb-5`}
                   >
                     Choose {plan.name}
                   </button>

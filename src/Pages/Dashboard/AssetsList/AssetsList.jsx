@@ -60,7 +60,7 @@ const AssetsList = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="max-w-7xl mx-auto mt-10 glass-card shadow-xl rounded-2xl p-6"
+      className="max-w-7xl mx-auto my-10 glass-card shadow-xl rounded-2xl p-6"
     >
       {/* Header */}
       <div className="flex items-center gap-2 mb-6">
