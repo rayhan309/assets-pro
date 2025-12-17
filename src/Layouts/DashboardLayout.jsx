@@ -33,7 +33,7 @@ const DashboardLayout = () => {
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full glass-card flex justify-between">
+        <nav className="navbar w-full glass-card sticky top-0 z-50 flex justify-between">
           <label htmlFor="my-drawer-4" aria-label="open sidebar" className="">
             {/* Sidebar toggle icon */}
             <div className="flex items-center ml-1 cursor-pointer">
@@ -114,7 +114,7 @@ const DashboardLayout = () => {
                     data-tip="All Request"
                   >
                     {/* add icon */}
-                    <SaveAll width={17} />
+                    <HelpCircle width={17} />
                     <span className="is-drawer-close:hidden">All Request</span>
                   </NavLink>
                 </li>

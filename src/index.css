@@ -20,7 +20,7 @@
 
 
 body {
-@apply bg-linear-to-br from-[#f77e5210]  via-[#f77e5280] to-[#f77e5210]
+@apply bg-gradient-to-br from-slate-500 via-purple-900 to-slate-900
 }
 
 /* bodo default style */

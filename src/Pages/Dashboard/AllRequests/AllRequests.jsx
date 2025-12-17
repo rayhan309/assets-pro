@@ -31,8 +31,9 @@ const AllRequests = () => {
   //   handleRejected
   const handleRejected = (asset) => {
     if (asset) {
-      const hrEmail = asset?.hrEmail;
-      const status = { status: "rejected", hrEmail };
+      const requesterEmail = asset.requesterEmail
+      const assetId = asset.assetId
+      const status = { status: "rejected", requesterEmail, assetId };
 
       Swal.fire({
         title: "Are you sure?",
@@ -49,7 +50,7 @@ const AllRequests = () => {
                 refetch();
                 Swal.fire({
                   icon: "success",
-                  title: "Employ has been rejected.",
+                  title: "Employ has been rejected.", 
                   showConfirmButton: false,
                   timer: 1500,
                 });
@@ -66,7 +67,8 @@ const AllRequests = () => {
 
   // handleApprove
   const handleApprove = (obj) => {
-    const object = {...obj, employeImage: userInfo.photo};
+    const object = {...obj, hrCompanyName: userInfo.companyName, employeImage: userInfo.photo, userRole: userInfo.role, dateOfBirth: userInfo.dateOfBirth};
+    console.log(obj);
     if (obj) {
       Swal.fire({
         title: "Are you sure?",

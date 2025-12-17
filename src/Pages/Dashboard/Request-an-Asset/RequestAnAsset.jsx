@@ -6,10 +6,12 @@ import Loading from "../../../Components/Loading/Loading";
 import { Package } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
+import useUserRole from "../../../Hooks/useUserRole";
 
 const RequestAnAsset = () => {
   const { user } = useAuth();
   const axiosSquer = useAxiosSquer();
+  const {userInfo} = useUserRole();
 
   const [selectedAsset, setSelectedAsset] = useState(null);
   const [note, setNote] = useState("");
@@ -34,7 +36,10 @@ const RequestAnAsset = () => {
       assetImage: selectedAsset.productImage,
       requesterEmail: user?.email,
       requesterName: user?.displayName,
+      requesterPhoto: user?.photoURL,
+      requesterDateOfBirth: userInfo.dateOfBirth,
       hrEmail: selectedAsset.hrEmail,
+      role: userInfo.role,
       companyName: selectedAsset.hrCompanyName,
       note,
       approvalDate: null,
