@@ -21,6 +21,12 @@ const MyAssets = () => {
   if (isLoading) return <Loading />;
 
   return (
+    <>
+          <div className="flex justify-center items-center gap-2 my-6">
+        <Package size={25} className="text-primary" />
+        <h1 className="text-3xl font-normal">My All Post Assets</h1>
+      </div>
+    
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -124,6 +130,7 @@ const MyAssets = () => {
         </table>
       </div>
     </motion.div>
+    </>
   );
 };
 

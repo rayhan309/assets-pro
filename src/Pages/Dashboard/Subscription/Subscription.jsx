@@ -19,8 +19,13 @@ const Subscription = () => {
     return <Loading />;
   }
 
+  // handlePayment
+  const handlePayment = (plan) => {
+    console.log(plan);
+  };
+
   return (
-    <section className="px-24 pt-28 ">
+    <section className="px-4 md:px-24 pt-28 ">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-3 text-[#f77e52]">
           Choose Your Plan!
@@ -39,7 +44,7 @@ const Subscription = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="flip-card min-h-90"
+              className="flip-card min-h-100"
             >
               <div className="flip-card-inner">
                 <div className="flip-card-front">
@@ -71,7 +76,8 @@ const Subscription = () => {
                   </ul>
 
                   <button
-                    className={`w-full btn border-none bg-primary rounded-xl py-3 text-sm font-semibold transition mb-5`}
+                  onClick={() => handlePayment(plan)}
+                    className={`btn w-[40%] border-none btn-primary rounded-xl absolute bottom-0 right-0 text-sm font-semibold transition mb-5`}
                   >
                     Choose {plan.name}
                   </button>

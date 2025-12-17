@@ -3,23 +3,28 @@ import { motion } from "framer-motion";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSquer from "../../../Hooks/useAxiosSquer";
 import Loading from "../../../Components/Loading/Loading";
-import { FileText, LogOut, Package, Trash2 } from "lucide-react";
+import { FileText, LogOut, Package, Search, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const MyrequestsEmploy = () => {
   const { user } = useAuth();
   const axiosSquer = useAxiosSquer();
+  const [searchText, setSearchTExt] = useState("");
+  const [type, setType] = useState("");
 
   // employ data
   const { data: requests = [], isLoading } = useQuery({
     queryKey: ["myRequests", user?.email],
     queryFn: async () => {
-      const res = await axiosSquer.get(`/requests?email=${user?.email}`);
+      const res = await axiosSquer.get(`/requests?email=${user?.email}&type=${type}&search=${searchText}`);
       return res.data;
     },
   });
 
   if (isLoading) return <Loading />;
+
+  console.log(searchText, type);
 
   return (
     <>
@@ -119,6 +124,58 @@ const MyrequestsEmploy = () => {
               )}
             </tbody>
           </table>
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-10 mt-20 flex justify-between items-center max-w-7xl mx-auto"
+      >
+        <div className="text-2xl font-normal">
+          Approved Assets (
+          {requests.filter((a) => a.requestStatus === "approved").length})
+        </div>
+
+        <div>
+          <select
+            onChange={(e) => {
+              setType(e.target.value);
+            }}
+            className="input-pro text-primary"
+          >
+            <option value="" className="text-primary">
+              Select type
+            </option>
+            <option value="Non-returnable" className="text-primary">
+              Non-returnable
+            </option>
+            <option value="Returnable" className="text-primary">
+              Returnable
+            </option>
+          </select>
+        </div>
+
+        {/* <!-- From Uiverse.io by antonypjohnson -->  */}
+        <div className="relative" id="input">
+          <input
+            onChange={(e) => {
+              setSearchTExt(e.target.value)
+            }}
+            placeholder="Search..."
+            className="input-pro"
+            id="floating_outlined"
+            type="text"
+          />
+          <label
+            className="peer-placeholder-shown:-z-10 peer-focus:z-10 absolute text-[14px] leading-[150%] text-primary peer-focus:text-primary peer-invalid:text-error-500 focus:invalid:text-error-500 duration-300 transform -translate-y-[1.2rem] scale-75 top-2 z-10 origin-[0] glass-card data-[disabled]:bg-gray-50-background- px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-[1.2rem] rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+            for="floating_outlined"
+          >
+            Search...
+          </label>
+          <div className="absolute top-2 right-3 text-primary">
+           <Search />
+          </div>
         </div>
       </motion.div>
 

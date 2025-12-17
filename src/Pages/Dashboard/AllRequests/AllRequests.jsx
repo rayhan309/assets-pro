@@ -66,7 +66,7 @@ const AllRequests = () => {
 
   // handleApprove
   const handleApprove = (obj) => {
-    const object = {...obj};
+    const object = {...obj, employeImage: userInfo.photo};
     if (obj) {
       Swal.fire({
         title: "Are you sure?",

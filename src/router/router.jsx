@@ -19,6 +19,7 @@ import RequestAnAsset from "../Pages/Dashboard/Request-an-Asset/RequestAnAsset";
 import AllRequests from "../Pages/Dashboard/AllRequests/AllRequests";
 import MyAssetsEmploy from "../Pages/Dashboard/MyAssetsEmploy/MyAssetsEmploy";
 import MyEmploys from "../Pages/Dashboard/MyEmploys/MyEmploys";
+import MyTeam from "../Pages/Dashboard/MyTeam/MyTeam";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +89,10 @@ export const router = createBrowserRouter([
       {
         path: "my-assetsemploy",
         Component: MyAssetsEmploy,
+      },
+      {
+        path: "my-team",
+        Component: MyTeam,
       },
       {
         path: "request-an-asset",

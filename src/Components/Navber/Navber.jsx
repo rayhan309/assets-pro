@@ -14,6 +14,7 @@ import {
   Plus,
   SquarePlus,
   TextAlignJustify,
+  UsersRoundIcon,
 } from "lucide-react";
 import Swal from "sweetalert2";
 import useUserRole from "../../Hooks/useUserRole";
@@ -105,7 +106,7 @@ const Navber = () => {
           </div>
           <Link className="flex items-center gap-1">
             <img className="w-12 h-12 rounded-full" src={logo} alt="" />
-            <h4 className="text-2xl">AssetsPro</h4>
+            <h4 className="text-2xl font-bold">Assets<span className="text-primary">Pro</span></h4>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -178,6 +179,18 @@ const Navber = () => {
                 >
                   <SquarePlus width={22} /> Join as HR
                 </NavLink>
+
+                       
+                  <NavLink
+                    to={"/dashboard/my-team"}
+                    className="btn btn-ghost w-full hover:bg-white/10 border-none"
+                    data-tip="My Team"
+                  >
+                    {/* Settings icon */}
+                    <UsersRoundIcon width={17} />
+                    <span className="is-drawer-close:hidden">My Team</span>
+                  </NavLink>
+  
 
                 <NavLink
                   to={"/dashboard/request-an-asset"}

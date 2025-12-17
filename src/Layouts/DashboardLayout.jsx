@@ -13,6 +13,7 @@ import {
   SaveAll,
   TextAlignJustify,
   Users,
+  UsersRoundIcon,
 } from "lucide-react";
 
 const DashboardLayout = () => {
@@ -37,7 +38,7 @@ const DashboardLayout = () => {
             {/* Sidebar toggle icon */}
             <div className="flex items-center ml-1 cursor-pointer">
               <img src={logo} className="rounded-full w-12 h-12" alt="" />
-              <h2 className="px-2 text-xl">AssetsPro</h2>
+              <h2 className="px-2 text-xl font-bold">Assets<span className="text-primary">Pro</span></h2>
             </div>
           </label>
 
@@ -184,6 +185,19 @@ const DashboardLayout = () => {
                     {/* Settings icon */}
                     <TextAlignJustify width={17} />
                     <span className="is-drawer-close:hidden">My Assets</span>
+                  </NavLink>
+                </li>
+
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to={"/dashboard/my-team"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Team"
+                  >
+                    {/* Settings icon */}
+                    <UsersRoundIcon width={17} />
+                    <span className="is-drawer-close:hidden">My Team</span>
                   </NavLink>
                 </li>
 
