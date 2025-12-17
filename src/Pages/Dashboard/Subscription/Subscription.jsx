@@ -3,9 +3,12 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import useAxiosSquer from "../../../Hooks/useAxiosSquer";
 import Loading from "../../../Components/Loading/Loading";
+import useAuth from "../../../Hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Subscription = () => {
   const axiosSquer = useAxiosSquer();
+  const {user} = useAuth();
 
   const { data: priceing = [], isLoading } = useQuery({
     queryKey: ["pricing"],
@@ -21,11 +24,21 @@ const Subscription = () => {
 
   // handlePayment
   const handlePayment = (plan) => {
-    console.log(plan);
+    const subPlan = {
+      ...plan,
+      customerEmail: user?.email,
+    };
+    axiosSquer.post(`create-checkout-session`, subPlan).then(res => {
+      if(res.data.url){
+        window.location.href = res.data.url;
+      }
+    }).catch(err => {
+      toast.error(err);
+    })
   };
 
   return (
-    <section className="px-4 md:px-24 pt-28 ">
+    <section className="px-4 md:px-24 pb-4 ">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-3 text-[#f77e52]">
           Choose Your Plan!
@@ -52,7 +65,7 @@ const Subscription = () => {
                   <p>Hover Me</p>
                 </div>
                 <div className="flip-card-back">
-                  <p className="title text-primary">{plan?.name}</p>
+                  <p className="title text-primary pt-4">{plan?.name}</p>
                   <p className="mb-6 text-primary">
                     Up to{" "}
                     <span className="font-medium">{plan.employeeLimit}</span>{" "}
@@ -77,7 +90,7 @@ const Subscription = () => {
 
                   <button
                   onClick={() => handlePayment(plan)}
-                    className={`btn w-[40%] border-none btn-primary rounded-xl absolute bottom-0 right-0 text-sm font-semibold transition mb-5`}
+                    className={`btn w-[40%] border-none btn-primary rounded-xl absolute bottom-16 right-10 text-sm font-semibold transition mb-5`}
                   >
                     Choose {plan.name}
                   </button>

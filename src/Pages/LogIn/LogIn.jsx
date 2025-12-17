@@ -36,6 +36,7 @@ const Login = () => {
           fireConfetti();
           reset();
           navigate(location?.state || '/');
+          window.location.reload();
         }
       })
       .catch((err) => {
@@ -124,8 +125,8 @@ const Login = () => {
         <p className="text-xs text-center opacity-50 mt-6">
           © AssetsPro • Secure Asset Management
         </p>
-      </motion.div>
       <ToastContainer />
+      </motion.div>
     </div>
   );
 };

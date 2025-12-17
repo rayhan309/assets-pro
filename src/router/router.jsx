@@ -20,6 +20,11 @@ import AllRequests from "../Pages/Dashboard/AllRequests/AllRequests";
 import MyAssetsEmploy from "../Pages/Dashboard/MyAssetsEmploy/MyAssetsEmploy";
 import MyEmploys from "../Pages/Dashboard/MyEmploys/MyEmploys";
 import MyTeam from "../Pages/Dashboard/MyTeam/MyTeam";
+import PaynentSuccess from "../Pages/Dashboard/PaynentSuccess/PaynentSuccess";
+import PaymentCancle from "../Pages/Dashboard/PaymentCancle/PaymentCancle";
+import SubscriptionDashboard from "../Pages/Dashboard/SubscriptionDashboard/SubscriptionDashboard";
+import Index_true from "../Pages/Dashboard/SubscriptionDashboard/Index_true/Index_true";
+import PaymentHistories from "../Pages/Dashboard/SubscriptionDashboard/PaymentHistories/PaymentHistories";
 
 export const router = createBrowserRouter([
   {
@@ -63,12 +68,42 @@ export const router = createBrowserRouter([
         Component: Profile,
       },
       {
-        path: "pricing",
+        path: "payment-success",
         element: (
           <HRPrivitePage>
-            <Subscription />
+            <PaynentSuccess />
           </HRPrivitePage>
         ),
+      },
+      {
+        path: "payment-cancle",
+        element: (
+          <HRPrivitePage>
+            <PaymentCancle />
+          </HRPrivitePage>
+        ),
+      },
+      {
+        path: "subscriptionDashboard",
+        element: (
+          <HRPrivitePage>
+            <SubscriptionDashboard />
+          </HRPrivitePage>
+        ),
+        children: [
+          {
+            path: 'about-us',
+            Component: Index_true,
+          },
+          {
+            path: "pricing",
+            element: <Subscription />,
+          },
+          {
+            path: "payment-histories",
+            element: <PaymentHistories />,
+          },
+        ],
       },
       {
         path: "add-assets",

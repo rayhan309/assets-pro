@@ -1,9 +1,34 @@
 import { Info, Package } from "lucide-react";
 import useUserRole from "../../../Hooks/useUserRole";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSquer from "../../../Hooks/useAxiosSquer";
+import Loading from "../../../Components/Loading/Loading";
 
 const MyTeam = () => {
+  const axiosSqure = useAxiosSquer();
   const { userInfo } = useUserRole();
-  console.log(userInfo);
+  const {newJoinCompaye} = userInfo;
+
+  const [one] = newJoinCompaye;
+
+  const {data: myTeam = [], isLoading} = useQuery({
+    queryKey: ['myTeam', userInfo.email],
+    queryFn: async () => {
+      const resp = await axiosSqure.get(`/approvedAssets/company?companyName=${one.companyName}`);
+      return resp.data;
+    }
+  });
+
+    const uniqueEmployees = Array.from(
+    new Map(
+      myTeam.map((emp) => [emp.employeeEmail, emp])
+    ).values()
+  );
+
+  if(isLoading) return <Loading />
+
+  console.log(uniqueEmployees);
+  
   return (
     <>
       <div className="my-10 max-w-7xl mx-auto">

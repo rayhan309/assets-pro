@@ -148,7 +148,7 @@ const DashboardLayout = () => {
                 {/* List item */}
                 <li>
                   <NavLink
-                    to={"/dashboard/pricing"}
+                    to={"/dashboard/subscriptionDashboard/about-us"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Subscription"
                   >
