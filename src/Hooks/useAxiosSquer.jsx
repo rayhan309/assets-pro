@@ -2,8 +2,9 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import useAuth from "./useAuth";
 
+
 const axiosSquer = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://assest-pro.vercel.app",
 });
 
 const useAxiosSquer = () => {
@@ -23,7 +24,7 @@ const useAxiosSquer = () => {
       }
     );
 
-    const res = axiosSquer.interceptors.request.use(
+    const res = axiosSquer.interceptors.response.use(
       (response) => {
         return response;
       },

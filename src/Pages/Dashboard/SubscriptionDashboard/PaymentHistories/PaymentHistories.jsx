@@ -24,7 +24,7 @@ const PaymentHistories = () => {
       <div className="">
         {/* Header Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-primary mb-2">Billing History</h2>
+          <h2 className="text-3xl font-bold mb-2">Billing History</h2>
           <p className="text-slate-300">View and manage your recent plan subscriptions.</p>
         </div>
 

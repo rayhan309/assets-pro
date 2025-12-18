@@ -24,7 +24,7 @@ const MyAssets = () => {
     <>
           <div className="flex justify-center items-center gap-2 my-6">
         <Package size={25} className="text-primary" />
-        <h1 className="text-3xl font-normal">My All Post Assets</h1>
+        <h1 className="text-3xl font-normal text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary/80">My All Post Assets</h1>
       </div>
     
     <motion.div
@@ -35,7 +35,7 @@ const MyAssets = () => {
       {/* Header */}
       <div className="flex items-center gap-2 mb-6">
         <Package className="text-primary" />
-        <h2 className="text-2xl font-bold">My Assets</h2>
+        <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary/80">My Assets</h2>
       </div>
 
       {/* Table */}

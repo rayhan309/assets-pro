@@ -7,8 +7,8 @@ const SubscriptionDashboard = () => {
     const currentPlan = "Premium Pro"; 
 
     return (
-        <div className="min-h-screen glass p-6">
-            <div className='max-w-7xl mx-auto rounded-2xl'>
+        <div className="min-h-screen p-16">
+            <div className='mx-auto rounded-2xl'>
             {/* Header Section */}
             <div className="glass-card rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

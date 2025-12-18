@@ -16,16 +16,17 @@ import {
 import Swal from "sweetalert2";
 import useUserRole from "../../../Hooks/useUserRole";
 import useAuth from "../../../Hooks/useAuth";
-import Loading from "../../../Components/Loading/Loading";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import useAxiosSquer from "../../../Hooks/useAxiosSquer";
 
 const Profile = () => {
   const { userInfo } = useUserRole();
-  const { signOutUser } = useAuth();
+  const { signOutUser, updateUser, user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
   const { handleSubmit, register } = useForm();
+  const axiosSecure = useAxiosSquer();
 
   if (!userInfo) return null;
 
@@ -56,7 +57,7 @@ const Profile = () => {
 
   // handle update profile
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
 
     const formData = new FormData();
     formData.append("image", data.photo[0]);
@@ -67,15 +68,33 @@ const Profile = () => {
         `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
         formData
       );
-      console.log(res.data);
+      // console.log(res.data.data.url);
+      if(res.data.data.url) {
+        updateUser(data.name , res.data.data.url).then(() => {
+            const updateUserDoc = {
+            name: data.name,
+            photo: res.data.data.url,
+            dateOfBirth: data.dateOfBirth,
+          }
+
+          axiosSecure.patch(`/users/root?email=${user?.email}`, updateUserDoc).then(res => {
+            // console.log(res.data);
+            window.location.reload();
+          }).catch(() => {
+            toast.error('Your profile update is filed');
+          })
+          // toast.success('Updated yor profile');
+          
+        }).catch(() => {
+          toast.error('Upadted filed.')
+        })
+        
+      }
     } catch (err) {
-      alert(err);
+      toast.error(err);
     }
   };
 
-  setTimeout(() => setLoading(false), 800);
-
-  if (loading) return <Loading />;
 
   return (
     <div className="max-w-6xl mx-auto my-6 px-4">
@@ -86,7 +105,7 @@ const Profile = () => {
           className="w-full max-h-72 object-cover"
           alt="cover"
         />
-        <button className="btn btn-primary btn-sm absolute right-4 bottom-8 gap-2">
+        <button className="my-btn border-none absolute right-4 bottom-8 gap-2">
           <Camera className="w-4 h-4" />
         </button>
       </div>
@@ -114,13 +133,13 @@ const Profile = () => {
           <div className="flex gap-2">
             <button
               onClick={() => setIsOpen(true)}
-              className="btn btn-primary gap-2"
+              className="my-btn gap-2"
             >
               <Edit className="w-4 h-4" /> Edit Profile
             </button>
             <button
               onClick={handleLogoutUser}
-              className="btn btn-outline btn-error gap-2"
+              className="btn btn-outline rounded-lg btn-error gap-2"
             >
               <LogOut className="w-4 h-4" /> Logout
             </button>
@@ -272,6 +291,7 @@ const Profile = () => {
           </motion.form>
         </dialog>
       )}
+      <ToastContainer />
     </div>
   );
 };

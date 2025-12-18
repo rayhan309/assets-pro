@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2, ArrowRight, Download, Share2 } from "lucide-react";
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import useAxiosSquer from "../../../Hooks/useAxiosSquer";
 
 const PaymentSuccess = () => {
@@ -23,17 +23,6 @@ const PaymentSuccess = () => {
         alert(err);
       });
   }, [axiosSquer, sessionId]);
-
-//   if (transactionId) {
-//     axiosSquer
-//       .get("/payment/:transactionId")
-//       .then((res) => {
-//         console.log(res.data);
-//       })
-//       .catch((err) => {
-//         alert(err);
-//       });
-//   }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -92,10 +81,10 @@ const PaymentSuccess = () => {
               <Download className="w-4 h-4" />
             </button>
 
-            <button className="w-full  font-semibold btn btn-primary transition duration-200 flex items-center justify-center gap-2">
+            <Link to={'/dashboard/assets-list'} className="w-full  font-semibold btn btn-primary transition duration-200 flex items-center justify-center gap-2">
               Go to Dashboard
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </Link>
           </div>
 
           {/* Footer Social/Share */}

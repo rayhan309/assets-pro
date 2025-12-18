@@ -3,9 +3,39 @@ import { motion } from "framer-motion";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSquer from "../../../Hooks/useAxiosSquer";
 import Loading from "../../../Components/Loading/Loading";
-import { FileText, LogOut, Package, Search, Trash2 } from "lucide-react";
+import { FileText, LogOut, Package, Search, Printer } from "lucide-react"; // Added Printer icon
 import Swal from "sweetalert2";
 import { useState } from "react";
+// 1. Import PDF components
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+
+// 2. Define PDF Styles
+const styles = StyleSheet.create({
+  page: { padding: 30, fontSize: 12 },
+  section: { marginBottom: 10 },
+  header: { fontSize: 18, marginBottom: 20, textAlign: 'center', fontWeight: 'bold' },
+  row: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#EEE', paddingBottom: 5, paddingTop: 5 },
+  label: { width: 120, fontWeight: 'bold' },
+  value: { flex: 1 }
+});
+
+
+const AssetPDF = ({ request }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <Text style={styles.header}>Asset Assignment Details</Text>
+      <View style={styles.section}>
+        <View style={styles.row}><Text style={styles.label}>Asset Name:</Text><Text style={styles.value}>{request.assetName}</Text></View>
+        <View style={styles.row}><Text style={styles.label}>Company:</Text><Text style={styles.value}>{request.companyName}</Text></View>
+        <View style={styles.row}><Text style={styles.label}>Type:</Text><Text style={styles.value}>{request.assetType}</Text></View>
+        <View style={styles.row}><Text style={styles.label}>Request Date:</Text><Text style={styles.value}>{new Date(request.requestDate).toLocaleDateString()}</Text></View>
+        <View style={styles.row}><Text style={styles.label}>Approval Date:</Text><Text style={styles.value}>{new Date(request.approvalDate).toLocaleDateString()}</Text></View>
+        <View style={styles.row}><Text style={styles.label}>Status:</Text><Text style={styles.value}>{request.requestStatus}</Text></View>
+        <Text style={{ marginTop: 40, fontSize: 10, color: 'gray' }}>Printed on: {new Date().toLocaleString()}</Text>
+      </View>
+    </Page>
+  </Document>
+);
 
 const MyrequestsEmploy = () => {
   const { user } = useAuth();
@@ -13,184 +43,71 @@ const MyrequestsEmploy = () => {
   const [searchText, setSearchTExt] = useState("");
   const [type, setType] = useState("");
 
-  // employ data
   const { data: requests = [], isLoading } = useQuery({
-    queryKey: ["myRequests", user?.email],
+    queryKey: ["myRequests", user?.email, searchText, type],
     queryFn: async () => {
-      const res = await axiosSquer.get(`/requests?email=${user?.email}&type=${type}&search=${searchText}`);
+      const res = await axiosSquer.get(
+        `/requests?email=${user?.email}&type=${type}&search=${searchText}`
+      );
       return res.data;
     },
   });
 
   if (isLoading) return <Loading />;
 
-  console.log(searchText, type);
-
   return (
     <>
+      {/* Search and Filter section remains the same */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-7xl mx-auto mt-10 glass-card shadow-xl rounded-2xl p-6"
+        className="md:mb-10 mt-20 flex flex-col gap-6 justify-between items-center mx-4 md:mx-14"
       >
-        {/* Header */}
-        <div className="flex justify-center items-center gap-2 mb-6">
-          <Package className="text-primary" />
-          <h2 className="text-2xl font-bold">All Requested Asset!</h2>
+        <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary/80">
+          Approved Assets ({requests.length})
         </div>
 
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="table table-zebra">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Asset</th>
-                <th>Type</th>
-                <th>Request Date</th>
-                <th>Request Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {requests.map((request, index) => (
-                <tr key={request._id} className="glass rounded-xl">
-                  <td>{index + 1}</td>
-
-                  {/* request Info */}
-                  <td className="flex items-center gap-3">
-                    <img
-                      className="w-14 h-14 rounded-2xl"
-                      src={
-                        request?.assetImage ||
-                        "https://i.ibb.co.com/7tZ3tFXs/pexels-c-125803429-11829002.jpg"
-                      }
-                      alt=""
-                    />
-                    <div>
-                      <p className="font-semibold">{request.assetName}</p>
-                      <p className="text-xs opacity-60">
-                        {request.companyName}
-                      </p>
-                    </div>
-                  </td>
-
-                  {/* Type */}
-                  <td>
-                    <span
-                      className={`badge ${
-                        request.assetType === "Returnable"
-                          ? "badge-warning"
-                          : "badge-success"
-                      }`}
-                    >
-                      {request.assetType}
-                    </span>
-                  </td>
-
-                  {/* Date */}
-                  <td className="text-sm">
-                    {new Date(request.requestDate).toLocaleDateString()}
-                  </td>
-
-                  <td
-                    className={`${
-                      request.requestStatus === "pending"
-                        ? "text-secondary"
-                        : request.requestStatus === "rejected"
-                        ? " text-red-400"
-                        : "text-success"
-                    }`}
-                  >
-                    {request.requestStatus}
-                  </td>
-
-                  {/* Actions */}
-                  <td className="flex items-center gap-2">
-                    <button className="btn btn-xs btn-outline btn-primary">
-                      <FileText size={14} />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-
-              {requests.length === 0 && (
-                <tr>
-                  <td colSpan="8" className="text-center py-10 opacity-60">
-                    No requests found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-10 mt-20 flex justify-between items-center max-w-7xl mx-auto"
-      >
-        <div className="text-2xl font-normal">
-          Approved Assets (
-          {requests.filter((a) => a.requestStatus === "approved").length})
-        </div>
-
-        <div>
+        <div className="flex flex-wrap gap-4 justify-center">
           <select
-            onChange={(e) => {
-              setType(e.target.value);
-            }}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
             className="input-pro text-primary"
           >
-            <option value="" className="text-primary">
-              Select type
-            </option>
-            <option value="Non-returnable" className="text-primary">
-              Non-returnable
-            </option>
-            <option value="Returnable" className="text-primary">
-              Returnable
-            </option>
+            <option value="">All Types</option>
+            <option value="Non-returnable">Non-returnable</option>
+            <option value="Returnable">Returnable</option>
           </select>
-        </div>
 
-        {/* <!-- From Uiverse.io by antonypjohnson -->  */}
-        <div className="relative" id="input">
-          <input
-            onChange={(e) => {
-              setSearchTExt(e.target.value)
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setSearchTExt(e.target.search.value);
             }}
-            placeholder="Search..."
-            className="input-pro"
-            id="floating_outlined"
-            type="text"
-          />
-          <label
-            className="peer-placeholder-shown:-z-10 peer-focus:z-10 absolute text-[14px] leading-[150%] text-primary peer-focus:text-primary peer-invalid:text-error-500 focus:invalid:text-error-500 duration-300 transform -translate-y-[1.2rem] scale-75 top-2 z-10 origin-[0] glass-card data-[disabled]:bg-gray-50-background- px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-[1.2rem] rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-            for="floating_outlined"
+            className="relative"
           >
-            Search...
-          </label>
-          <div className="absolute top-2 right-3 text-primary">
-           <Search />
-          </div>
+            <input
+              placeholder="Search..."
+              className="input-pro"
+              name="search"
+              type="text"
+            />
+            <div className="absolute top-2 right-3 text-primary">
+              <Search />
+            </div>
+          </form>
         </div>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-7xl mx-auto my-10 glass-card shadow-xl rounded-2xl p-6"
+        className="mx-4 md:mx-14 my-16 glass-card shadow-xl rounded-2xl p-6"
       >
-        {/* Header */}
         <div className="flex justify-center items-center gap-2 mb-6">
           <Package className="text-primary" />
-          <h2 className="text-2xl font-bold">All My Approved Asset!</h2>
+          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary/80">All My Approved Asset!</h2>
         </div>
 
-        {/* Table */}
         <div className="overflow-x-auto">
           <table className="table table-zebra">
             <thead>
@@ -200,115 +117,78 @@ const MyrequestsEmploy = () => {
                 <th>Type</th>
                 <th>Requested Date</th>
                 <th>Approved Date</th>
-                <th>Request Status</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              {requests
-                .filter((a) => a.requestStatus === "approved")
-                .map((request, index) => (
-                  <tr key={request._id} className="glass rounded-xl">
-                    <td>{index + 1}</td>
+              {requests.map((request, index) => (
+                <tr key={request._id} className="glass rounded-xl">
+                  <td>{index + 1}</td>
+                  <td className="flex items-center gap-3">
+                    <img
+                      className="w-14 h-14 rounded-2xl"
+                      src={request?.assetImage || "https://i.ibb.co.com/7tZ3tFXs/pexels-c-125803429-11829002.jpg"}
+                      alt=""
+                    />
+                    <div>
+                      <p className="font-semibold">{request.assetName}</p>
+                      <p className="text-xs opacity-60">{request.companyName}</p>
+                    </div>
+                  </td>
+                  <td>
+                    <span className={`badge ${request.assetType === "Returnable" ? "badge-warning" : "badge-success"}`}>
+                      {request.assetType}
+                    </span>
+                  </td>
+                  <td className="text-sm">{new Date(request.requestDate).toLocaleDateString()}</td>
+                  <td className="text-sm">{new Date(request.approvalDate).toLocaleDateString()}</td>
+                  <td className={request.requestStatus === "pending" ? "text-secondary" : "text-success"}>
+                    {request.requestStatus}
+                  </td>
 
-                    {/* request Info */}
-                    <td className="flex items-center gap-3">
-                      <img
-                        className="w-14 h-14 rounded-2xl"
-                        src={
-                          request?.assetImage ||
-                          "https://i.ibb.co.com/7tZ3tFXs/pexels-c-125803429-11829002.jpg"
-                        }
-                        alt=""
-                      />
-                      <div>
-                        <p className="font-semibold">{request.assetName}</p>
-                        <p className="text-xs opacity-60">
-                          {request.companyName}
-                        </p>
-                      </div>
-                    </td>
-
-                    {/* Type */}
-                    <td>
-                      <span
-                        className={`badge ${
-                          request.assetType === "Returnable"
-                            ? "badge-warning"
-                            : "badge-success"
-                        }`}
-                      >
-                        {request.assetType}
-                      </span>
-                    </td>
-
-                    {/* Date */}
-                    <td className="text-sm">
-                      {new Date(request.requestDate).toLocaleDateString()}
-                    </td>
-
-                    {/* Date */}
-                    <td className="text-sm">
-                      {new Date(request.approvalDate).toLocaleDateString()}
-                    </td>
-
-                    <td
-                      className={`${
-                        request.requestStatus === "pending"
-                          ? "text-secondary"
-                          : request.requestStatus === "rejected"
-                          ? "text-primary"
-                          : "text-success"
-                      }`}
+                  <td className="flex items-center gap-2">
+                    {/* --- PDF PRINT BUTTON --- */}
+                    <PDFDownloadLink
+                      document={<AssetPDF request={request} />}
+                      fileName={`${request.assetName}_details.pdf`}
                     >
-                      {request.requestStatus}
-                    </td>
-
-                    {/* Actions */}
-                    <td className="flex items-center gap-2">
-                      <button className="btn btn-xs btn-outline btn-primary">
-                        <FileText size={14} />
-                      </button>
-
-                      {request.assetType === "Returnable" && (
-                        <button
-                          title="Return"
-                          onClick={() => {
-                            Swal.fire({
-                              title: "Are you sure?",
-                              text: "You won't be able to revert this!",
-                              icon: "warning",
-                              showCancelButton: true,
-                              confirmButtonColor: "#3085d6",
-                              cancelButtonColor: "#d33",
-                              confirmButtonText: "Yes, return it!",
-                            }).then((result) => {
-                              if (result.isConfirmed) {
-                                Swal.fire({
-                                  title: "Deleted!",
-                                  text: "Your asset has been returned.",
-                                  icon: "success",
-                                });
-                              }
-                            });
-                          }}
-                          className="btn btn-xs btn-outline btn-error"
+                      {({ loading }) => (
+                        <button 
+                          className={`btn btn-xs btn-outline btn-primary ${loading ? 'loading' : ''}`}
+                          title="Download PDF"
                         >
-                          <LogOut size={14} />
+                          <Printer size={14} />
                         </button>
                       )}
-                    </td>
-                  </tr>
-                ))}
+                    </PDFDownloadLink>
 
-              {requests.length === 0 && (
-                <tr>
-                  <td colSpan="8" className="text-center py-10 opacity-60">
-                    No requests found
+                    {request.assetType === "Returnable" && (
+                      <button
+                        title="Return"
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Are you sure?",
+                            text: "You want to return this asset?",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Yes, return it!",
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                               // Add your actual return logic here
+                               Swal.fire("Returned!", "Success", "success");
+                            }
+                          });
+                        }}
+                        className="btn btn-xs btn-outline btn-error"
+                      >
+                        <LogOut size={14} />
+                      </button>
+                    )}
                   </td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </div>

@@ -6,6 +6,7 @@ import useUserRole from "../Hooks/useUserRole";
 import { Outlet } from "react-router";
 import {
   Bell,
+  ChartNoAxesCombined,
   CircleUser,
   HelpCircle,
   List,
@@ -33,12 +34,12 @@ const DashboardLayout = () => {
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full glass-card sticky top-0 z-50 flex justify-between">
+        <nav className="navbar w-full glass-card sticky top-0 z-40 flex justify-between">
           <label htmlFor="my-drawer-4" aria-label="open sidebar" className="">
             {/* Sidebar toggle icon */}
             <div className="flex items-center ml-1 cursor-pointer">
               <img src={logo} className="rounded-full w-12 h-12" alt="" />
-              <h2 className="px-2 text-xl font-bold">Assets<span className="text-primary">Pro</span></h2>
+              <h2 className="px-2 text-xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary/80 font-bold">Assets<span>Pro</span></h2>
             </div>
           </label>
 
@@ -57,7 +58,7 @@ const DashboardLayout = () => {
         </div>
       </div>
 
-      <div className="drawer-side is-drawer-close:overflow-visible">
+      <div className="drawer-side z-50 is-drawer-close:overflow-visible">
         <label
           htmlFor="my-drawer-4"
           aria-label="close sidebar"
@@ -155,6 +156,20 @@ const DashboardLayout = () => {
                     {/* add icon */}
                     <Bell width={17} />
                     <span className="is-drawer-close:hidden">Subscription</span>
+                  </NavLink>
+                </li>
+
+
+                {/* List item */}
+                <li>
+                  <NavLink
+                    to={"/dashboard/analytics"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Analytics"
+                  >
+                    {/* add icon */}
+                    <ChartNoAxesCombined width={17} />
+                    <span className="is-drawer-close:hidden">Analytics</span>
                   </NavLink>
                 </li>
 

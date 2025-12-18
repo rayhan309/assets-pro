@@ -25,6 +25,7 @@ import PaymentCancle from "../Pages/Dashboard/PaymentCancle/PaymentCancle";
 import SubscriptionDashboard from "../Pages/Dashboard/SubscriptionDashboard/SubscriptionDashboard";
 import Index_true from "../Pages/Dashboard/SubscriptionDashboard/Index_true/Index_true";
 import PaymentHistories from "../Pages/Dashboard/SubscriptionDashboard/PaymentHistories/PaymentHistories";
+import Analytics from "../Pages/Dashboard/Analytics/Analytics";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +73,14 @@ export const router = createBrowserRouter([
         element: (
           <HRPrivitePage>
             <PaynentSuccess />
+          </HRPrivitePage>
+        ),
+      },
+      {
+        path: "analytics",
+        element: (
+          <HRPrivitePage>
+            <Analytics />
           </HRPrivitePage>
         ),
       },

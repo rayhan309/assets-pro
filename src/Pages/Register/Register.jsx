@@ -51,7 +51,7 @@ const Register = () => {
           `https://api.imgbb.com/1/upload?key=${imagebbAPIK}`,
           formData
         );
-        console.log(response);
+        // console.log(response);
         if (response.data.data.url) {
           logoImg = response.data.data.url;
         } else {

@@ -6,6 +6,7 @@ import Loading from "../../../Components/Loading/Loading";
 import Swal from "sweetalert2";
 import useUserRole from "../../../Hooks/useUserRole";
 import { useNavigate } from "react-router";
+import { HelpCircle } from "lucide-react";
 
 const AllRequests = () => {
   const { user } = useAuth();
@@ -103,7 +104,13 @@ const AllRequests = () => {
   // console.log(requests);
 
   return (
-    <div className="overflow-x-auto max-w-7xl mx-auto mt-10 glass-card shadow-xl rounded-2xl p-6">
+    <div className="overflow-x-auto mx-3 md:mx-14 mt-10 glass-card shadow-xl rounded-2xl p-6">
+
+    <div className="flex items-center gap-2">
+      <HelpCircle className="text-primary" size={25} />
+      <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary/80">All Request My Assets.</h3>
+    </div>
+
       <table className="table table-zebra">
         {/* head */}
         <thead>
@@ -191,11 +198,13 @@ const AllRequests = () => {
                       }
                       handleApprove(request);
                     }}
+                    disabled={request.requestStatus === "approved"}
                     className="btn btn-outline btn-primary btn-xs mr-4"
                   >
                     Approved
                   </button>
                   <button
+                  disabled={request.requestStatus === "rejected"}
                     onClick={() => handleRejected(request)}
                     className="btn btn-outline btn-warning btn-xs"
                   >

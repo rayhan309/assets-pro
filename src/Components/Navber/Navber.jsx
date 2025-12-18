@@ -106,7 +106,7 @@ const Navber = () => {
           </div>
           <Link className="flex items-center gap-1">
             <img className="w-12 h-12 rounded-full" src={logo} alt="" />
-            <h4 className="text-2xl font-bold">Assets<span className="text-primary">Pro</span></h4>
+            <h4 className="text-2xl text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary/80 font-bold">Assets<span className="">Pro</span></h4>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

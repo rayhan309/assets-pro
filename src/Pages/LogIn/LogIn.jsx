@@ -18,7 +18,6 @@ const fireConfetti = () => {
 
 const Login = () => {
   const { signInUser } = useAuth();
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
   const {
@@ -44,13 +43,8 @@ const Login = () => {
       });
   };
 
-  setTimeout(() => {
-    setLoading(false);
-  }, 1500);
 
-  return loading ? (
-    <Loading />
-  ) : (
+  return (
     <div className="my-20 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -128,7 +122,7 @@ const Login = () => {
       <ToastContainer />
       </motion.div>
     </div>
-  );
+  )
 };
 
 export default Login;

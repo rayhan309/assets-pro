@@ -50,6 +50,14 @@ const RequestAnAsset = () => {
     axiosSquer
       .post("/requests", requestData)
       .then((res) => {
+        if(res.data.message === 'alrady requested'){
+          return      Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Your request filed, Because you requested it before.",
+          // footer: '<a href="#">Why do I have this issue?</a>',
+        });
+        }
         if (res.data.updateResult.modifiedCount && res.data.result.insertedId) {
           Swal.fire({
             position: "top-center",
@@ -69,7 +77,7 @@ const RequestAnAsset = () => {
         });
       });
 
-    console.log("REQUEST CREATED:", requestData);
+    // console.log("REQUEST CREATED:", requestData);
 
     // reset
     setSelectedAsset(null);
@@ -80,11 +88,11 @@ const RequestAnAsset = () => {
     <div className="px-10 pb-10 pt-4">
       <div className="flex justify-center items-center gap-2 mt-6">
         <Package className="text-primary text-5xl" />
-        <h2 className="text-3xl text-primary font-semibold">
+        <h2 className="text-3xl text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary/80 font-semibold">
           Request an Asset
         </h2>
       </div>
-      <p className="mb-6 text-center text-primary">
+      <p className="mb-6 text-center text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary/80">
         All Companeis Assets Chouse Assets & Find
       </p>
 
@@ -93,7 +101,7 @@ const RequestAnAsset = () => {
         {availableAssets.map((asset) => (
           <div
             key={asset._id}
-            className="border rounded-xl glass-card shadow-sm p-4 flex flex-col"
+            className="rounded-xl bg-secondary/10 shadow-sm p-4 flex flex-col"
           >
             <img
               src={asset.productImage}
@@ -101,16 +109,16 @@ const RequestAnAsset = () => {
               className="max-h-52 w-full object-cover rounded-lg mb-4"
             />
 
-            <h3 className="text-lg font-semibold text-primary">
+            <span className="text-lg font-semibold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary/80">
               {asset.productName}
-            </h3>
+            </span>
             <p className="text-sm my-2">Type: {asset.productType}</p>
             <p className="text-sm mb-2">Available: {asset.availableQuantity}</p>
             <p className="text-sm mb-2">Company: {asset.hrCompanyName}</p>
 
             <button
               onClick={() => setSelectedAsset(asset)}
-              className="mt-auto btn btn-primary rounded-lg transition"
+              className="my-btn"
             >
               Request
             </button>
