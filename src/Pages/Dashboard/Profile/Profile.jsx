@@ -97,7 +97,7 @@ const Profile = () => {
 
 
   return (
-    <div className="max-w-6xl mx-auto my-6 px-4">
+    <div className="md:mx-14 mx-4 my-6 px-4">
       {/* Cover Photo */}
       <div className="relative rounded-2xl overflow-hidden shadow-lg">
         <img

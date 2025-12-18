@@ -174,17 +174,17 @@ const DashboardLayout = () => {
                 </li>
 
                 {/* List item */}
-                <li>
+                {/* <li>
                   <NavLink
                     to={"/dashboard/my-assets"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Assets"
                   >
-                    {/* Settings icon */}
+                    Settings icon
                     <TextAlignJustify width={17} />
                     <span className="is-drawer-close:hidden">My Assets</span>
                   </NavLink>
-                </li>
+                </li> */}
               </>
             )}
 
