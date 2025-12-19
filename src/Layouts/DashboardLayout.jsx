@@ -7,6 +7,7 @@ import { Outlet } from "react-router";
 import {
   Bell,
   ChartNoAxesCombined,
+  CirclePlus,
   CircleUser,
   HelpCircle,
   List,
@@ -16,6 +17,7 @@ import {
   Users,
   UsersRoundIcon,
 } from "lucide-react";
+import { FaUsers } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const [loading, setLoading] = useState(true);
@@ -128,7 +130,7 @@ const DashboardLayout = () => {
                     data-tip="My Employeis"
                   >
                     {/* add icon */}
-                    <Users width={17} />
+                    <FaUsers size={17} />
                     <span className="is-drawer-close:hidden">My Employeis</span>
                   </NavLink>
                 </li>
@@ -141,7 +143,7 @@ const DashboardLayout = () => {
                     data-tip="Add Assets"
                   >
                     {/* add icon */}
-                    <Plus width={17} />
+                    <CirclePlus width={17} />
                     <span className="is-drawer-close:hidden">Add Assets</span>
                   </NavLink>
                 </li>
@@ -245,7 +247,8 @@ const DashboardLayout = () => {
 
             {/* List item */}
             <li>
-              <button
+              <NavLink
+              to={'/dashboard/settings'}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Settings"
               >
@@ -266,7 +269,7 @@ const DashboardLayout = () => {
                   <circle cx="7" cy="7" r="3"></circle>
                 </svg>
                 <span className="is-drawer-close:hidden">Settings</span>
-              </button>
+              </NavLink>
             </li>
           </ul>
         </div>

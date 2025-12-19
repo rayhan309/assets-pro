@@ -122,8 +122,8 @@ const AssetsList = () => {
       {/* Search Bar & Stats */}
       <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 my-10 mx-3 md:mx-14 rounded-2xl shadow-xl flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
-          <h3 className="text-xl font-medium text-white/80">
-            Total Assets: <span className="text-primary font-bold">{assets.length}</span>
+          <h3 className="text-xl font-medium my-text">
+            Total Assets: <span className="font-bold">( {assets.length} )</span>
           </h3>
         </div>
 

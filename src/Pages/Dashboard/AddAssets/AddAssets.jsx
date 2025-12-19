@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosSquer from "../../../Hooks/useAxiosSquer";
 import useUserRole from "../../../Hooks/useUserRole";
+import { FaProductHunt } from "react-icons/fa";
 
 const AddAssets = () => {
   const {
@@ -104,9 +105,13 @@ const AddAssets = () => {
 
   return (
     <div className="max-w-2xl mx-auto mt-16 my-bg shadow-xl rounded-2xl p-6">
-      <h2 className="text-2xl font-bold mb-6 bg-linear-to-r from-primary to-secondary/80 ext-transparent bg-clip-text text-center">Add New Asset</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div className="flex justify-center items-center gap-2">
+        <FaProductHunt className="text-primary" size={30} />
+      <span className="text-2xl font-bold my-text "> Add New Asset</span>
+      </div>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-6">
         {/* Product Name */}
         <label className="font-medium">Product Name</label>
         <input

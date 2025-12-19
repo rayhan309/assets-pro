@@ -51,7 +51,11 @@ body {
 
 
 li .active {
-  @apply text-secondary underline
+  @apply text-secondary underline 
+}
+
+a{
+  @apply hover:text-secondary
 }
 
 /* loding card */

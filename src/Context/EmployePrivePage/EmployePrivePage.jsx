@@ -3,7 +3,7 @@ import useUserRole from '../../Hooks/useUserRole';
 import Loading from '../../Components/Loading/Loading';
 import { Navigate } from 'react-router';
 
-const HRPrivitePage = ({children}) => {
+const EmployPrivitePage = ({children}) => {
   const { userInfo, isLoading} = useUserRole();
 
   const { role } = userInfo;
@@ -12,11 +12,11 @@ const HRPrivitePage = ({children}) => {
     return <Loading />
   }
 
-  if(role === 'HR_MANAGER') {
+  if(role === 'EMPLOYEE') {
     return children
   }
 
   return <Navigate to={'/forbidden'}></Navigate>;
 };
 
-export default HRPrivitePage;
+export default EmployPrivitePage;

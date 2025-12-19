@@ -1,7 +1,9 @@
 import Lottie from "lottie-react";
 import forbiddenAnimation from "../../assets/json/forbidden.json";
 import { Link } from "react-router";
+import useUserRole from "../../Hooks/useUserRole";
 const Forbidden = () => {
+  const {userInfo} = useUserRole();
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <Lottie
@@ -24,9 +26,9 @@ const Forbidden = () => {
           {" "}
           Go to Home
         </Link>
-        <Link className="btn btn-secondary" to="/dashboard/my-assetsemploy">
+        <Link className="btn btn-secondary" to={`/dashboard/settings`}>
           {" "}
-          Go to Dashboard
+          Go to Back
         </Link>
       </div>
     </div>

@@ -26,6 +26,8 @@ import SubscriptionDashboard from "../Pages/Dashboard/SubscriptionDashboard/Subs
 import Index_true from "../Pages/Dashboard/SubscriptionDashboard/Index_true/Index_true";
 import PaymentHistories from "../Pages/Dashboard/SubscriptionDashboard/PaymentHistories/PaymentHistories";
 import Analytics from "../Pages/Dashboard/Analytics/Analytics";
+import Settings from "../Pages/Dashboard/Settings/Settings";
+import EmployPrivitePage from "../Context/EmployePrivePage/EmployePrivePage";
 
 export const router = createBrowserRouter([
   {
@@ -132,7 +134,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "my-assetsemploy",
-        Component: MyAssetsEmploy,
+        element: <EmployPrivitePage>
+          <MyAssetsEmploy></MyAssetsEmploy>
+        </EmployPrivitePage>
       },
       {
         path: "my-team",
@@ -141,6 +145,10 @@ export const router = createBrowserRouter([
       {
         path: "request-an-asset",
         Component: RequestAnAsset,
+      },
+      {
+        path: "settings",
+        Component: Settings,
       },
       {
         path: "assets-list",

@@ -127,7 +127,7 @@ const AllRequests = () => {
           {/* row  */}
           {requests.map((request, i) => {
             return (
-              <tr key={i} className=" glass rounded-2xl">
+              <tr key={i} className="bg-white/5 rounded-2xl">
                 <th>{i + 1}</th>
                 <td>
                   <div className="flex items-center gap-3">
@@ -191,7 +191,7 @@ const AllRequests = () => {
                           confirmButtonText: "Go to Upgrade",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            navigate("/dashboard/pricing");
+                            navigate("/dashboard/subscriptionDashboard/pricing");
                           }
                         });
                         return;
