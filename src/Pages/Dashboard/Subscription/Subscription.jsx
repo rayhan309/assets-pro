@@ -82,10 +82,10 @@ const Subscription = () => {
             key={plan.name}
             variants={cardVariants}
             whileHover={{ y: -12 }}
-            className="group relative"
+            className="group relative my-bg rounded-3xl"
           >
             {/*  */}
-            <div className="absolute -inset-[1px] bg-gradient-to-b from-primary/50 to-transparent rounded-[24px] opacity-0 group-hover:opacity-100 transition duration-500" />
+            <div className="absolute -inset-[1px] bg-gradient-to-b from-primary/50 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500" />
             
             <div className="relative h-full border border-white/5 p-8 rounded-[23px] flex flex-col shadow-2xl">
               

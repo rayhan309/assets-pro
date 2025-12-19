@@ -103,7 +103,7 @@ const AddAssets = () => {
   // }
 
   return (
-    <div className="max-w-2xl mx-auto mt-16 glass-card shadow-xl rounded-2xl p-6">
+    <div className="max-w-2xl mx-auto mt-16 my-bg shadow-xl rounded-2xl p-6">
       <h2 className="text-2xl font-bold mb-6 bg-linear-to-r from-primary to-secondary/80 ext-transparent bg-clip-text text-center">Add New Asset</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -174,7 +174,7 @@ const AddAssets = () => {
 
         <button
           type="submit"
-          className="btn bg-[#f77e52] border-none w-full"
+          className="btn bg-linear-to-r from-primary/80 rounded-lg to-secondary/80 w-full border-none"
           disabled={loading}
         >
           {loading ? "Adding..." : "Add Asset"}

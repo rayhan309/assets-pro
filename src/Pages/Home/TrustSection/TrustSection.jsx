@@ -7,17 +7,17 @@ import { useEffect } from "react";
 
 const stats = [
   {
-    icon: <Building2 className="w-8 h-8 text-[#f77e52]" />,
+    icon: <Building2 className="w-8 h-8 text-primary" />,
     value: "100+",
     label: "Companies Trust Us",
   },
   {
-    icon: <Users className="w-8 h-8 text-[#f77e52]" />,
+    icon: <Users className="w-8 h-8 text-primary" />,
     value: "50k+",
     label: "Active Users",
   },
   {
-    icon: <ShieldCheck className="w-8 h-8 text-[#f77e52]" />,
+    icon: <ShieldCheck className="w-8 h-8 text-primary" />,
     value: "99.9%",
     label: "Uptime Guarantee",
   },
@@ -33,33 +33,33 @@ const TrustSection = () => {
     }, []);
 
   return (
-    <section className="my-12 glass-card rounded-2xl p-4 md:p-20">
+    <section className="my-12 my-bg rounded-2xl p-4 md:p-20">
       <div className="">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
-          <h2 className="text-3xl font-bold mb-4">
+          <span className="text-4xl font-bold  my-text">
             Trusted by Teams Worldwide
-          </h2>
-          <p className="max-w-2xl mx-auto">
+          </span>
+          <p className="max-w-2xl mt-4 mx-auto">
             Thousands of professionals rely on our platform to build, scale, and
             succeed.
           </p>
         </motion.div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-20">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.15 }}
-              className="flex flex-col items-center text-center p-6 rounded-xl border bg-[#f77e5230]"
+              className="flex flex-col items-center text-center p-6 rounded-xl border my-bg"
             >
               {stat.icon}
               <h3 className="text-3xl font-bold mt-4">{stat.value}</h3>
@@ -76,10 +76,10 @@ const TrustSection = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
-              className="bg-[#f77e5230] border p-6 rounded-xl shadow-sm hover:shadow-md transition"
+              className="my-bg border p-6 rounded-xl shadow-sm hover:shadow-md transition"
             >
               {/* Stars */}
-              <div className="flex mb-4 text-yellow-400">
+              <div className="flex mb-4 text-primary">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-current" />
                 ))}

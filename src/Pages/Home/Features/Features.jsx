@@ -136,11 +136,11 @@ const FeaturesSection = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="glass-card rounded-2xl p-4 md:p-20 my-12"
+      className="my-bg rounded-2xl p-4 md:p-20 my-12"
     >
       <div className="text-center">
-        <h2 className="text-3xl font-bold mb-8">Our Key Features</h2>
-        <p className="mb-12">
+        <span className="text-4xl font-bold my-text">Our Key Features</span>
+        <p className="mb-12 mt-6">
           Discover what makes our product stand out with these amazing features.
         </p>
 
@@ -153,9 +153,9 @@ const FeaturesSection = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
               key={index}
-              className="bg-[#f77e5230] p-6 rounded-xl border shadow hover:shadow-lg transition"
+              className="my-bg p-6 rounded-xl border shadow hover:shadow-lg transition"
             >
-              <div className="text-[#f77e52] mb-4 text-4xl">
+              <div className="text-primary mb-4 text-4xl">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>

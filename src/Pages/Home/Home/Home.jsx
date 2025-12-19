@@ -7,6 +7,7 @@ import Loading from "../../../Components/Loading/Loading";
 import Features from "../Features/Features";
 import TrustSection from "../TrustSection/TrustSection";
 import ExtraSections from "../ExtraSections/ExtraSections";
+import Subscription from "../../Dashboard/Subscription/Subscription";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -22,18 +23,20 @@ const Home = () => {
   return (
     <div>
       <Banner />
-      <div>
-        <motion.h1
+      <div className="mb-10 mt-20 flex justify-center">
+        <motion.span
           initial={{ opacity: 0, x: -24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-5xl font-bold mb-10 mt-20 text-center bg-gradient-to-r from-slate-50/10 via-white/80 to-slate-50/10 bg-clip-text text-transparent"
+          className="text-5xl font-bold my-text"
         >
           About Us
-        </motion.h1>
+        </motion.span>
       </div>
       <AboutUs />
-      <Priching />
+      <div className="my-bg rounded-2xl">
+      <Subscription />
+      </div>
       <Features />
       <TrustSection />
       <ExtraSections />

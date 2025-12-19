@@ -41,12 +41,12 @@ const Analytics = () => {
     .slice(0, 5);
 
   return (
-    <div className="p-4 md:p-8 min-h-screen bg-slate-900 text-white">
+    <div className="p-4 md:p-8 min-h-screen  text-white">
       <div className="mb-10">
-        <h2 className="text-3xl font-extrabold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+        <span className="text-3xl font-extrabold my-text">
           Asset Analytics Dashboard
-        </h2>
-        <p className="text-slate-400 mt-2">Real-time distribution and request tracking</p>
+        </span>
+        <p className="text-gray-400 mt-2">Real-time distribution and request tracking</p>
       </div>
       
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
@@ -55,7 +55,7 @@ const Analytics = () => {
         <div className="relative group">
           <div className="absolute -inset-0.5 bg-linear-to-r from-blue-500 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
           <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl h-[450px] flex flex-col">
-            <h3 className="text-xl font-semibold mb-6 text-white/90">Items Distribution</h3>
+            <span className="text-xl font-semibold mb-6 bg-linear-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Items Distribution</span>
             <div className="flex-grow">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -85,9 +85,9 @@ const Analytics = () => {
 
         {/* Bar Chart: Glass Effect */}
         <div className="relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+          <div className="absolute -inset-0.5 my-bg rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
           <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl h-[450px] flex flex-col">
-            <h3 className="text-xl font-semibold mb-6 text-white/90">Top 5 Requested Assets</h3>
+            <h3 className="text-xl font-semibold mb-6 my-text">Top 5 Requested Assets</h3>
             <div className="flex-grow">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={barData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>

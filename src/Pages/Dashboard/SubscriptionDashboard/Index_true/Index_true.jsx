@@ -11,7 +11,7 @@ export const StatsCard = ({ title, value, icon, index }) => (
     whileHover={{ y: -5, transition: { duration: 0.2 } }}
     className="relative group p-[1px] rounded-2xl transition-all duration-500 shadow-sm"
   >
-    <div className="glass p-6 rounded-[15px] flex items-center justify-between h-full">
+    <div className="glass-card p-6 rounded-[15px] flex items-center justify-between h-full">
       <div>
         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">{title}</p>
         <h3 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 tracking-tight">{value}</h3>
@@ -44,7 +44,7 @@ const Index_true = () => {
       <motion.div 
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="relative overflow-hidden rounded-[2rem] p-8 md:p-12 shadow-2xl"
+        className="relative overflow-hidden rounded-4xl p-8 md:p-12 shadow-2xl"
       >
 
         <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[100px]" />
@@ -62,10 +62,10 @@ const Index_true = () => {
               You have full access to our exclusive tools, priority support, and advanced analytics.
             </p>
             <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
-              <button className="btn btn-primary hover:bg-primary/90 font-bold rounded-xl transition-all shadow-lg shadow-primary/25 active:scale-95">
+              <button className="my-btn hover:bg-primary/90 font-bold rounded-xl transition-all shadow-lg shadow-secondary/25 active:scale-95">
                 Explore Benefits
               </button>
-              <button className="btn btn-ghost font-bold rounded-xl backdrop-blur-md transition-all border border-white/10">
+              <button className="btn btn-outline font-bold rounded-lg backdrop-blur-md transition-all border border-white/10">
                 Documentation
               </button>
             </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 
 export default function Banner({
   title = "Secure assets. Smarter teams.",
@@ -12,7 +13,7 @@ export default function Banner({
     <section className="relative glass-card my-10 rounded-2xl overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 -z-10">
-        <div className="h-full w-full bg-gradient-to-r from-slate-50/10 via-[#f77e5280] to-slate-50/20" />
+        <div className="h-full w-full my-bg" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-28">
@@ -24,11 +25,17 @@ export default function Banner({
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="space-y-6"
           >
-            <p className="inline-block rounded-full bg-emerald-100 text-[#f77e52] px-3 py-1 text-sm font-medium shadow-sm">
-              Trusted by high-growth teams
-            </p>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="inline-block px-4 py-1.5 mb-4 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md"
+            >
+              <span className="text-primary text-sm font-bold tracking-widest uppercase flex items-center gap-2">
+                <Sparkles size={14} /> Trusted by high-growth teams
+              </span>
+            </motion.div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-[#f77e5290]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight  my-text">
               {title}
             </h1>
 
@@ -49,7 +56,7 @@ export default function Banner({
             >
               <a
                 href="#"
-                className="inline-flex items-center justify-center border-none rounded-2xl bg-slate-900 text-white btn py-3 text-sm "
+                className="inline-flex items-center justify-center my-btn py-3 text-sm "
                 aria-label={ctaText}
               >
                 {ctaText}
@@ -57,7 +64,7 @@ export default function Banner({
 
               <a
                 href="#"
-                className="inline-flex items-center border-none text-sm justify-center bg-[#f77e5280] text-white rounded-2xl btn py-3 "
+                className="inline-flex items-center border-none text-sm justify-center bg-[#f77e5280] text-white rounded-lg btn py-3 "
                 aria-label={secondaryCta}
               >
                 {secondaryCta}

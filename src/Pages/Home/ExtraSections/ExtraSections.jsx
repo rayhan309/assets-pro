@@ -48,15 +48,15 @@ const ExtraSections = () => {
   return (
     <motion.div
       {...motionProps}
-      className="p-4 md:p-20 glass-card my-12 space-y-20 rounded-2xl"
+      className="p-4 md:p-20 my-bg my-12 space-y-20 rounded-2xl"
     >
       {/* How It Works */}
       <motion.section {...motionProps} className="text-center">
-        <motion.h2 {...motionProps} className="text-3xl font-bold mb-10">
+        <motion.span {...motionProps} className="text-4xl my-text font-bold">
           How It Works
-        </motion.h2>
+        </motion.span>
 
-        <motion.div {...motionProps} className="grid gap-8 md:grid-cols-3">
+        <motion.div {...motionProps} className="grid gap-8 md:grid-cols-3 mt-10">
           {[
             {
               title: "Step 1: Get Started",
@@ -74,7 +74,7 @@ const ExtraSections = () => {
             <motion.div
               key={i}
               {...motionProps}
-              className="p-6 rounded-2xl shadow-md border bg-[#f77e5230]"
+              className="p-6 rounded-2xl shadow-md border my-bg"
             >
               <motion.h3
                 {...motionProps}
@@ -90,19 +90,22 @@ const ExtraSections = () => {
 
       {/* FAQ Section */}
       <motion.section {...motionProps}>
-        <motion.h2
+        <div className="text-center">
+
+        <motion.span
           {...motionProps}
-          className="text-3xl font-bold text-center mb-10"
+          className="text-4xl text-center font-bold my-text"
         >
           Frequently Asked Questions
-        </motion.h2>
+        </motion.span>
+        </div>
 
-        <motion.div {...motionProps} className="space-y-6">
+        <motion.div {...motionProps} className="space-y-6 mt-10">
           {FAQ.map((faq, i) => (
             <motion.details
               key={i}
               {...motionProps}
-              className="bg-[#f77e5230] border p-5 rounded-2xl"
+              className="my-bg border p-5 rounded-2xl"
             >
               <summary className="cursor-pointer">
                 <motion.span {...motionProps} className="font-semibold">
@@ -119,19 +122,23 @@ const ExtraSections = () => {
 
       {/* Assets Section */}
       <motion.section {...motionProps}>
-        <motion.h2
+
+        <div className="text-center">
+
+        <motion.span
           {...motionProps}
-          className="text-3xl font-bold text-center mb-10"
+          className="text-4xl font-bold my-text"
         >
           Assets & Resources
-        </motion.h2>
+        </motion.span>
+        </div>
 
-        <motion.div {...motionProps} className="grid gap-8 md:grid-cols-3">
+        <motion.div {...motionProps} className="grid gap-8 md:grid-cols-3 mt-10">
           {assets.map((asset, i) => (
             <motion.div
               key={i}
               {...motionProps}
-              className="p-6 rounded-2xl shadow-md border bg-[#f77e5230]"
+              className="p-6 rounded-2xl shadow-md border my-bg"
             >
               <motion.h3
                 {...motionProps}
@@ -153,19 +160,19 @@ const ExtraSections = () => {
       {/* Contact CTA */}
       <motion.section
         {...motionProps}
-        className="rounded-2xl p-10 text-center border bg-[#f77e5230]"
+        className="rounded-2xl p-10 text-center border my-bg"
       >
-        <motion.h2 {...motionProps} className="text-3xl font-bold mb-4">
+        <motion.span {...motionProps} className="text-4xl font-bold my-text">
           Ready to Get Started?
-        </motion.h2>
+        </motion.span>
 
-        <motion.p {...motionProps} className="mb-6">
+        <motion.p {...motionProps} className="mb-6 mt-4">
           Have questions or want to move forward? Let’s talk.
         </motion.p>
 
         <motion.button
           whileTap={{ scale: 0.95 }}
-          className="px-8 py-3 rounded-2xl btn border-none bg-[#f77e5230] font-semibold shadow-md"
+          className="px-8 py-3 rounded-2xl btn border-none my-btn font-semibold shadow-md"
         >
           Contact Us
         </motion.button>

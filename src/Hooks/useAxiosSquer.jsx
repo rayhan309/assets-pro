@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 
 
 const axiosSquer = axios.create({
-  baseURL: "https://assest-pro.vercel.app",
+  baseURL: "http://localhost:3000",
 });
 
 const useAxiosSquer = () => {

@@ -7,31 +7,72 @@ import { FileText, LogOut, Package, Search, Printer } from "lucide-react"; // Ad
 import Swal from "sweetalert2";
 import { useState } from "react";
 // 1. Import PDF components
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import {
+  PDFDownloadLink,
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+} from "@react-pdf/renderer";
 
 // 2. Define PDF Styles
 const styles = StyleSheet.create({
   page: { padding: 30, fontSize: 12 },
   section: { marginBottom: 10 },
-  header: { fontSize: 18, marginBottom: 20, textAlign: 'center', fontWeight: 'bold' },
-  row: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#EEE', paddingBottom: 5, paddingTop: 5 },
-  label: { width: 120, fontWeight: 'bold' },
-  value: { flex: 1 }
+  header: {
+    fontSize: 18,
+    marginBottom: 20,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  row: {
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    borderBottomColor: "#EEE",
+    paddingBottom: 5,
+    paddingTop: 5,
+  },
+  label: { width: 120, fontWeight: "bold" },
+  value: { flex: 1 },
 });
-
 
 const AssetPDF = ({ request }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <Text style={styles.header}>Asset Assignment Details</Text>
       <View style={styles.section}>
-        <View style={styles.row}><Text style={styles.label}>Asset Name:</Text><Text style={styles.value}>{request.assetName}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Company:</Text><Text style={styles.value}>{request.companyName}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Type:</Text><Text style={styles.value}>{request.assetType}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Request Date:</Text><Text style={styles.value}>{new Date(request.requestDate).toLocaleDateString()}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Approval Date:</Text><Text style={styles.value}>{new Date(request.approvalDate).toLocaleDateString()}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Status:</Text><Text style={styles.value}>{request.requestStatus}</Text></View>
-        <Text style={{ marginTop: 40, fontSize: 10, color: 'gray' }}>Printed on: {new Date().toLocaleString()}</Text>
+        <View style={styles.row}>
+          <Text style={styles.label}>Asset Name:</Text>
+          <Text style={styles.value}>{request.assetName}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Company:</Text>
+          <Text style={styles.value}>{request.companyName}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Type:</Text>
+          <Text style={styles.value}>{request.assetType}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Request Date:</Text>
+          <Text style={styles.value}>
+            {new Date(request.requestDate).toLocaleDateString()}
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Approval Date:</Text>
+          <Text style={styles.value}>
+            {new Date(request.approvalDate).toLocaleDateString()}
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Status:</Text>
+          <Text style={styles.value}>{request.requestStatus}</Text>
+        </View>
+        <Text style={{ marginTop: 40, fontSize: 10, color: "gray" }}>
+          Printed on: {new Date().toLocaleString()}
+        </Text>
       </View>
     </Page>
   </Document>
@@ -61,51 +102,59 @@ const MyrequestsEmploy = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="md:mb-10 mt-20 flex flex-col gap-6 justify-between items-center mx-4 md:mx-14"
+        className="md:mb-10 mt-20 flex flex-col md:flex-row gap-6 justify-between items-center mx-4 md:mx-14"
       >
         <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary/80">
           Approved Assets ({requests.length})
         </div>
 
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="flex gap-4 px-4 border rounded-lg">
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="input-pro text-primary"
+            className="input-pro text-slate-700 bg-transparent border-none py-2 focus:ring-0"
           >
-            <option value="">All Types</option>
-            <option value="Non-returnable">Non-returnable</option>
-            <option value="Returnable">Returnable</option>
+            <option className="bg-primary text-gray-900" value="">
+              All Types
+            </option>
+            <option className="bg-primary text-gray-900" value="Non-returnable">
+              Non-returnable
+            </option>
+            <option className="bg-primary hover:bg-secondary text-gray-900" value="Returnable">
+              Returnable
+            </option>
           </select>
-
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSearchTExt(e.target.search.value);
-            }}
-            className="relative"
-          >
-            <input
-              placeholder="Search..."
-              className="input-pro"
-              name="search"
-              type="text"
-            />
-            <div className="absolute top-2 right-3 text-primary">
-              <Search />
-            </div>
-          </form>
         </div>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setSearchTExt(e.target.search.value);
+          }}
+          className="relative"
+        >
+          <input
+            placeholder="Search..."
+            className="input-pro"
+            name="search"
+            type="text"
+          />
+          <div className="absolute top-2 right-3 text-primary">
+            <Search />
+          </div>
+        </form>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mx-4 md:mx-14 my-16 glass-card shadow-xl rounded-2xl p-6"
+        className="mx-4 md:mx-14 my-16 bg-white/5 shadow-xl rounded-2xl p-6"
       >
         <div className="flex justify-center items-center gap-2 mb-6">
           <Package className="text-primary" />
-          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary/80">All My Approved Asset!</h2>
+          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary/80">
+            All My Approved Asset!
+          </h2>
         </div>
 
         <div className="overflow-x-auto">
@@ -124,27 +173,48 @@ const MyrequestsEmploy = () => {
 
             <tbody>
               {requests.map((request, index) => (
-                <tr key={request._id} className="glass rounded-xl">
+                <tr key={request._id} className="glass-card rounded-xl">
                   <td>{index + 1}</td>
                   <td className="flex items-center gap-3">
                     <img
                       className="w-14 h-14 rounded-2xl"
-                      src={request?.assetImage || "https://i.ibb.co.com/7tZ3tFXs/pexels-c-125803429-11829002.jpg"}
+                      src={
+                        request?.assetImage ||
+                        "https://i.ibb.co.com/7tZ3tFXs/pexels-c-125803429-11829002.jpg"
+                      }
                       alt=""
                     />
                     <div>
                       <p className="font-semibold">{request.assetName}</p>
-                      <p className="text-xs opacity-60">{request.companyName}</p>
+                      <p className="text-xs opacity-60">
+                        {request.companyName}
+                      </p>
                     </div>
                   </td>
                   <td>
-                    <span className={`badge ${request.assetType === "Returnable" ? "badge-warning" : "badge-success"}`}>
+                    <span
+                      className={`badge ${
+                        request.assetType === "Returnable"
+                          ? "badge-warning text-red-300"
+                          : "badge-success"
+                      }`}
+                    >
                       {request.assetType}
                     </span>
                   </td>
-                  <td className="text-sm">{new Date(request.requestDate).toLocaleDateString()}</td>
-                  <td className="text-sm">{new Date(request.approvalDate).toLocaleDateString()}</td>
-                  <td className={request.requestStatus === "pending" ? "text-secondary" : "text-success"}>
+                  <td className="text-sm">
+                    {new Date(request.requestDate).toLocaleDateString()}
+                  </td>
+                  <td className="text-sm">
+                    {new Date(request.approvalDate).toLocaleDateString()}
+                  </td>
+                  <td
+                    className={
+                      request.requestStatus === "pending"
+                        ? "text-secondary"
+                        : "text-success"
+                    }
+                  >
                     {request.requestStatus}
                   </td>
 
@@ -155,8 +225,10 @@ const MyrequestsEmploy = () => {
                       fileName={`${request.assetName}_details.pdf`}
                     >
                       {({ loading }) => (
-                        <button 
-                          className={`btn btn-xs btn-outline btn-primary ${loading ? 'loading' : ''}`}
+                        <button
+                          className={`btn btn-xs btn-outline btn-primary ${
+                            loading ? "loading" : ""
+                          }`}
                           title="Download PDF"
                         >
                           <Printer size={14} />
@@ -176,8 +248,8 @@ const MyrequestsEmploy = () => {
                             confirmButtonText: "Yes, return it!",
                           }).then((result) => {
                             if (result.isConfirmed) {
-                               // Add your actual return logic here
-                               Swal.fire("Returned!", "Success", "success");
+                              // Add your actual return logic here
+                              Swal.fire("Returned!", "Success", "success");
                             }
                           });
                         }}

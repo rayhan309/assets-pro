@@ -24,12 +24,12 @@ const PaymentHistories = () => {
       <div className="">
         {/* Header Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Billing History</h2>
-          <p className="text-slate-300">View and manage your recent plan subscriptions.</p>
+          <span className="text-3xl font-bold  my-text">Billing History</span>
+          <p className="text-gray-400 mt-2">View and manage your recent plan subscriptions.</p>
         </div>
 
         {/* Glass Card Container */}
-        <div className="relative overflow-hidden border border-white/20 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl">
+        <div className="relative overflow-hidden border border-white/20 bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl">
           <div className="p-6 border-b border-white/10 flex justify-between items-center">
             <span className="text-white font-medium">Recent Transactions</span>
             <span className="px-3 py-1 bg-white/20 rounded-full text-xs text-white uppercase tracking-wider">

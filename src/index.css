@@ -13,14 +13,17 @@
 @plugin "daisyui/theme" {
   name: "dark";
   default: true;
-  --color-primary: #f77e52;
-  --color-secondary: #2dd4bf;
-  --color-warning: #A52A2A90;
+  --color-primary: purple;
+  --color-secondary: #CF9FFF;
+  --color-warning: #FFBF00;
 }
 
 
 body {
 @apply bg-linear-to-br from-slate-900 via-purple-900 to-slate-900 w-full
+}
+.my-bg {
+@apply bg-linear-to-br from-slate-900 via-purple-900 to-slate-900 border-none
 }
 
 /* bodo default style */
@@ -30,12 +33,22 @@ body {
 }
 
 .my-btn {
-  @apply btn bg-linear-to-r from-primary/80 rounded-lg to-secondary/80
+  @apply btn border-none px-6 py-2.5 font-medium tracking-wide text-white 
+  transition-all duration-300 ease-in-out
+  bg-linear-to-r from-primary/80 to-secondary/80 
+  rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] 
+  active:scale-95 focus:ring-2 focus:ring-primary/50 focus:outline-none;
 }
+
+.my-btn-glossy {
+  @apply btn  glass rounded-lg backdrop-blur-sm;
+}
+
 
 .my-text{
   @apply text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary/80 border-none
 }
+
 
 li .active {
   @apply text-secondary underline

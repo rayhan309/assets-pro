@@ -34,7 +34,7 @@ const Navber = () => {
 
       {userInfo.role === "HR_MANAGER" ? (
         <li className="">
-          <NavLink to={"/dashboard/my-assets"}>
+          <NavLink to={"/dashboard/assets-list"}>
             <LayoutDashboard width={17} /> Dashboard
           </NavLink>
         </li>

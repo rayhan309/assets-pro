@@ -10,14 +10,14 @@ const SubscriptionDashboard = () => {
         <div className="min-h-screen p-16">
             <div className='mx-auto rounded-2xl'>
             {/* Header Section */}
-            <div className="glass-card rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
+            <div className="my-bg rounded-2xl shadow-sm p-8 mb-8">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <span className="text-sm font-semibold text-primary tracking-wide uppercase">
+                        <span className="text-sm font-semibold my-text tracking-wide uppercase">
                             Subscription Overview
                         </span>
                         <h1 className="text-3xl font-bold mt-1">
-                            You've Updated To <span className="text-primary">{currentPlan}</span>
+                            You've Updated To <span className="my-text">{currentPlan}</span>
                         </h1>
                         <p className="text-gray-300 mt-2">
                             Enjoy all your premium features and exclusive tools.
@@ -25,7 +25,7 @@ const SubscriptionDashboard = () => {
                     </div>
                     
                     <div className="flex items-center gap-3">
-                        <button className="px-5 btn border-none py-2.5 bg-gray-800 text-white rounded-xl font-medium hover:bg-gray-900 transition-all shadow-md">
+                        <button className=" text-white rounded-xl font-medium btn btn-primary transition-all shadow-md">
                             Manage Plan
                         </button>
                     </div>
@@ -49,7 +49,7 @@ const SubscriptionDashboard = () => {
 
             {/* Baki Dashboard Content Ekhane Hobe */}
 
-            <div className="min-h-50 glass-card my-8 py-10 px-3 rounded-2xl">
+            <div className="min-h-50 my-bg my-8 py-10 px-3 rounded-2xl">
                 <Outlet />
             </div>
 

@@ -104,7 +104,7 @@ const AllRequests = () => {
   // console.log(requests);
 
   return (
-    <div className="overflow-x-auto mx-3 md:mx-14 mt-10 glass-card shadow-xl rounded-2xl p-6">
+    <div className="overflow-x-auto mx-3 md:mx-14 mt-10 bg-white/5 shadow-xl rounded-2xl p-6">
 
     <div className="flex items-center gap-2">
       <HelpCircle className="text-primary" size={25} />
@@ -127,7 +127,7 @@ const AllRequests = () => {
           {/* row  */}
           {requests.map((request, i) => {
             return (
-              <tr key={i} className="bg-white/10 glass rounded-2xl">
+              <tr key={i} className=" glass rounded-2xl">
                 <th>{i + 1}</th>
                 <td>
                   <div className="flex items-center gap-3">
