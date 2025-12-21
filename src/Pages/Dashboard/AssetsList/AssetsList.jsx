@@ -162,7 +162,7 @@ const AssetsList = () => {
                   <td className="text-white/50">{index + 1}</td>
                   <td>
                     <div className="flex items-center gap-4">
-                      <div className="p-1 bg-white/10 rounded-xl">
+                      <div className="p-1 bg-white/10 rounded-xl hidden md:block">
                         <img
                           src={asset.productImage}
                           alt=""
@@ -184,7 +184,7 @@ const AssetsList = () => {
                       {asset.productType}
                     </span>
                   </td>
-                  <td className="text-center font-mono text-primary">{asset.productQuantity}</td>
+                  <td className="text-center font-mono text-secondary">{asset.productQuantity}</td>
                   <td className="text-white/60 text-sm">
                     {new Date(asset.postAt).toLocaleDateString()}
                   </td>

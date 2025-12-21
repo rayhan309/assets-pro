@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 const motionProps = {
   initial: { opacity: 0, y: 20 },
@@ -170,12 +171,13 @@ const ExtraSections = () => {
           Have questions or want to move forward? Let’s talk.
         </motion.p>
 
-        <motion.button
+        <Link
+        to={'/contact'}
           whileTap={{ scale: 0.95 }}
           className="px-8 py-3 rounded-2xl btn border-none my-btn font-semibold shadow-md"
         >
           Contact Us
-        </motion.button>
+        </Link>
       </motion.section>
     </motion.div>
   );

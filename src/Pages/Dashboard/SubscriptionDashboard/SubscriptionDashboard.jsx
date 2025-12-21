@@ -49,7 +49,7 @@ const SubscriptionDashboard = () => {
 
             {/* Baki Dashboard Content Ekhane Hobe */}
 
-            <div className="min-h-50 my-bg my-8 py-10 px-3 rounded-2xl">
+            <div className="min-h-50 my-bg my-8 py-10 px- rounded-2xl">
                 <Outlet />
             </div>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, Calendar, CreditCard, Download, ExternalLink, Zap } from 'lucide-react';
+import { CheckCircle, Calendar, CreditCard,  Zap } from 'lucide-react';
 
 
 export const StatsCard = ({ title, value, icon, index }) => (
@@ -37,7 +37,7 @@ const Index_true = () => {
       variants={container}
       initial="hidden"
       animate="show"
-      className="space-y-8 p-2 md:p-6"
+      className="space-y-8 p-4 md:p-6"
     >
 
 

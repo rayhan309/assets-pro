@@ -5,9 +5,12 @@ import {
   Globe, CreditCard, ChevronRight, Camera, 
   ShieldAlert
 } from 'lucide-react';
+import useUserRole from '../../../Hooks/useUserRole';
+import SecuritySettings from './Security/Security';
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState('profile');
+  const {userInfo} = useUserRole();
 
   const menuItems = [
     { id: 'profile', label: 'Account', icon: <User size={18} />, color: 'bg-blue-500' },
@@ -17,22 +20,25 @@ const Settings = () => {
     { id: 'billing', label: 'Billing', icon: <CreditCard size={18} />, color: 'bg-emerald-500' },
   ];
 
+
+  console.log(activeTab)
+
   return (
-    <div className="min-h-screen p-4 md:p-8 font-sans">
+    <div className="min-h-screen p-2 md:p-8 font-sans">
       <div className="md:mx-14 mx-5 grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* --- LEFT SIDEBAR --- */}
         <aside className="lg:col-span-4 xl:col-span-3 space-y-4">
-          <div className="bg-base-100/50 rounded-3xl p-6 shadow-sm border border-base-300">
+          <div className="bg-base-100/20 rounded-3xl p-6 shadow-sm border border-base-300">
             <div className="flex items-center gap-4 mb-8 px-2">
               <div className="avatar online">
                 <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="user" />
+                  <img src={userInfo.photo || "https://i.pravatar.cc/150?u=a042581f4e29026704d"} alt="user" />
                 </div>
               </div>
               <div>
-                <h2 className="font-bold text-lg">Alex Rivera</h2>
-                <p className="text-xs opacity-50">Pro Account</p>
+                <h2 className="font-bold text-lg">{userInfo.name}</h2>
+                <p className="text-xs opacity-50"> {userInfo.role === "HR_MANAGER" ? "Pro Account" : "Basic Account"}</p>
               </div>
             </div>
 
@@ -69,12 +75,12 @@ const Settings = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.2 }}
-              className="bg-base-100/50 rounded-3xl shadow-sm border border-base-300 overflow-hidden"
+              className="bg-base-100/40 rounded-3xl shadow-sm border border-base-300 overflow-hidden"
             >
               {/* Profile Section Content */}
               {activeTab === 'profile' && (
                 <div className="p-8">
-                  <div className="flex justify-between items-start mb-8">
+                  <div className="flex flex-wrap gap-4 justify-between items-start mb-8">
                     <div>
                       <span className="text-2xl font-bold my-text">Profile Settings</span>
                       <p className="text-sm text-secondary opacity-60">Update your personal information and public profile.</p>
@@ -86,7 +92,7 @@ const Settings = () => {
                     <div className="flex items-center gap-6 p-4 bg-base-200/50 rounded-2xl border border-dashed border-base-300">
                       <div className="relative group">
                         <div className="w-20 h-20 rounded-2xl overflow-hidden">
-                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="profile" />
+                            <img src={userInfo.photo || "https://i.pravatar.cc/150?u=a042581f4e29026704d"} alt="profile" />
                         </div>
                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-2xl">
                           <Camera size={20} className="text-white" />
@@ -106,12 +112,12 @@ const Settings = () => {
                       <div className="form-control">
                         <label className="label"><span className="label-text font-semibold">Full Name</span></label>
                         <br />
-                        <input type="text" className="input input-bordered bg-base-200/30 focus:border-primary" defaultValue="Alex Rivera" />
+                        <input type="text" className="input input-bordered bg-base-200/30 focus:border-primary" defaultValue={userInfo.name} />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-semibold">Email</span></label>
                         <br />
-                        <input type="email" className="input input-bordered bg-base-200/30 focus:border-primary" defaultValue="alex@rivera.com" />
+                        <input type="email" className="input input-bordered bg-base-200/30 focus:border-primary" defaultValue={userInfo.email} />
                       </div>
                     </div>
 
@@ -140,7 +146,12 @@ const Settings = () => {
               )}
 
               {/* Other tabs can be added here with similar structure */}
-              {activeTab !== 'profile' && (
+
+              {activeTab === 'security' && <div>
+                <SecuritySettings />
+                </div>}
+
+              {activeTab !== 'profile' && activeTab !== 'security' && (
                 <div className="p-20 text-center space-y-4">
                   <div className="loading loading-dots loading-lg text-primary"></div>
                   <p className="opacity-50">The {activeTab} panel is under construction...</p>

@@ -68,7 +68,7 @@ const PaymentSuccess = () => {
               <span className="text-sm">Amount Paid</span>
               <span className=" font-semibold">{amount}</span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex flex-wrap justify-between">
               <span className="text-sm">Transaction ID</span>
               <span className="font-mono text-xs">{transactionId}</span>
             </div>

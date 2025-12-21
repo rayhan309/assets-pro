@@ -28,6 +28,7 @@ import PaymentHistories from "../Pages/Dashboard/SubscriptionDashboard/PaymentHi
 import Analytics from "../Pages/Dashboard/Analytics/Analytics";
 import Settings from "../Pages/Dashboard/Settings/Settings";
 import EmployPrivitePage from "../Context/EmployePrivePage/EmployePrivePage";
+import ContactPage from "../Pages/Home/Contact/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "join-hr",
         Component: JoinHR,
+      },
+      {
+        path: "contact",
+        Component: ContactPage,
       },
       {
         path: "/forbidden",
