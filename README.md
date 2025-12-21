@@ -37,7 +37,7 @@ This system was developed to solve critical inventory and HR challenges:
     ```
 2.  **Navigate to the project folder:**
     ```bash
-    cd your-repo-name
+    cd assets-pro
     ```
 3.  **Install dependencies:**
     ```bash
@@ -67,6 +67,3 @@ For production-grade applications, it is recommended to:
 
 ## 📈 Roadmap
 - [ ] User authentication (Admin/Staff roles)
-- [ ] QR Code/Barcode scanning integration
-- [ ] Automated email reminders for overdue returns
-- [ ] Detailed PDF report generation for audits

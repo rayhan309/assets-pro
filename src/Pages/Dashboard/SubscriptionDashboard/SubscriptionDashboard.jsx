@@ -7,7 +7,7 @@ const SubscriptionDashboard = () => {
     const currentPlan = "Premium Pro"; 
 
     return (
-        <div className="min-h-screen p-16">
+        <div className="min-h-screen p-2 md:p-16">
             <div className='mx-auto rounded-2xl'>
             {/* Header Section */}
             <div className="my-bg rounded-2xl shadow-sm p-8 mb-8">
