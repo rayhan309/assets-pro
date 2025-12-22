@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router";
-import logo from "../assets/assets-logo.png";
+// import logo from "../assets/assets-logo.png";
+import assetsLogo from "../assets/logo-2.png";
 import Loading from "../Components/Loading/Loading";
 import useUserRole from "../Hooks/useUserRole";
 import { Outlet } from "react-router";
@@ -11,10 +12,7 @@ import {
   CircleUser,
   HelpCircle,
   List,
-  Plus,
-  SaveAll,
   TextAlignJustify,
-  Users,
   UsersRoundIcon,
 } from "lucide-react";
 import { FaUsers } from "react-icons/fa";
@@ -40,7 +38,7 @@ const DashboardLayout = () => {
           <label htmlFor="my-drawer-4" aria-label="open sidebar" className="">
             {/* Sidebar toggle icon */}
             <div className="flex items-center ml-1 cursor-pointer">
-              <img src={logo} className="rounded-full w-12 h-12" alt="" />
+              <img src={assetsLogo} className="rounded-full w-12 border-primary h-12" alt="" />
               <h2 className="px-2 text-xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary/80 font-bold">Assets<span>Pro</span></h2>
             </div>
           </label>
@@ -174,19 +172,6 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">Analytics</span>
                   </NavLink>
                 </li>
-
-                {/* List item */}
-                {/* <li>
-                  <NavLink
-                    to={"/dashboard/my-assets"}
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="My Assets"
-                  >
-                    Settings icon
-                    <TextAlignJustify width={17} />
-                    <span className="is-drawer-close:hidden">My Assets</span>
-                  </NavLink>
-                </li> */}
               </>
             )}
 

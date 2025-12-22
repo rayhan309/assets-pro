@@ -1,6 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
+import useAuth from "../../../Hooks/useAuth";
+import { Link } from "react-router";
+import useUserRole from "../../../Hooks/useUserRole";
+import Swal from "sweetalert2";
 
 export default function Banner({
   title = "Secure assets. Smarter teams.",
@@ -9,6 +13,8 @@ export default function Banner({
   secondaryCta = "Request Demo",
   imageUrl = "https://images.unsplash.com/photo-1542744095-291d1f67b221?auto=format&fit=crop&w=1600&q=80",
 }) {
+  const { user } = useAuth();
+  const { userInfo } = useUserRole();
   return (
     <section className="relative glass-card my-10 rounded-2xl overflow-hidden">
       {/* Background gradient */}
@@ -54,21 +60,36 @@ export default function Banner({
               transition={{ delay: 0.25, duration: 0.5 }}
               className="flex flex-col sm:flex-row gap-3 sm:gap-4"
             >
-              <a
-                href="#"
+              <Link
+                to={
+                  user
+                    ? userInfo.role === "HR_MANAGER"
+                      ? "/dashboard/assets-list"
+                      : "/dashboard/my-assetsemploy"
+                    : "/login"
+                }
                 className="inline-flex items-center justify-center my-btn py-3 text-sm "
                 aria-label={ctaText}
               >
                 {ctaText}
-              </a>
+              </Link>
 
-              <a
-                href="#"
+              <Link
+                onClick={() => {
+                  Swal.fire({
+                    icon: "error",
+                    background: '#9932CC',
+                    color: '#8B0000',
+                    title: "Oops...",
+                    text: "This side is not accessble!",
+                    // footer: '<a href="#">Why do I have this issue?</a>',
+                  });
+                }}
                 className="inline-flex items-center border-none text-sm justify-center bg-[#f77e5280] text-white rounded-lg btn py-3 "
                 aria-label={secondaryCta}
               >
                 {secondaryCta}
-              </a>
+              </Link>
             </motion.div>
 
             <motion.div

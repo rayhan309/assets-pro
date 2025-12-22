@@ -5,6 +5,10 @@ A high-performance web application built with **React** and **Vite** designed to
 ---
 
 ## 🎯 Project Purpose
+Live Link: https://assets-pro-ca84b.web.app/
+
+
+## 🎯 Project Purpose
 
 This system was developed to solve critical inventory and HR challenges:
 
