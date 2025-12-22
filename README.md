@@ -4,6 +4,9 @@ A high-performance web application built with **React** and **Vite** designed to
 
 ---
 
+## My Project Doc
+Link: https://docs.google.com/document/d/1pTo_CQCqzHqcsgFCjwtMMzJkpBoFfiAcBvtqj5lrF8Y/edit?tab=t.0
+
 ## 🎯 Project Purpose
 Live Link: https://assets-pro-ca84b.web.app/
 
